@@ -142,7 +142,7 @@ msgstr "登录"
 msgid ""
 "No background set. Upload an image or video named \"bg\" (e.g. bg.jpg, "
 "bg.png, bg.mp4) to /www/luci-static/glass/background/ via SCP."
-msgstr "未设置背景。请通过 SCP 将名为 \"bg\" 的图片或视频（如 bg.jpg、bg.png、bg.mp4）上传至 /www/luci-static/glass/background/ 目录。"
+msgstr "未设置背景。请通过 SCP 将名为 “bg” 的图片或视频（如 bg.jpg、bg.png、bg.mp4）上传至 /www/luci-static/glass/background/ 目录。"
 
 #: ucode/template/themes/glass/header.ut:201
 msgid "No password set!"

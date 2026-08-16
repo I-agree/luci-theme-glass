@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Dark Mode — luci-theme-glass
-   Compiled separately and injected by header.ut when dark mode is active.
+   Dark Mode — luci-theme-glass (Visual-Only Edition)
+   Only color/background/shadow overrides — no layout changes.
    ========================================================================== */
 :root {
   /* ---- Colors — Dark mode ---- */
@@ -34,8 +34,8 @@
   /* ---- Dark background ---- */
   --bg-gradient: linear-gradient(135deg, #2c2e3a 0%, #353848 50%, #2a2d38 100%);
 }
-/* ---- Dark-mode-specific overrides ---- */
-/* Inputs need darker backgrounds */
+
+/* ---- Inputs — darker background only ---- */
 .cbi-input-text,
 .cbi-input-password,
 input[type="text"],
@@ -45,7 +45,8 @@ textarea,
 select {
   background: rgba(44, 44, 46, 0.55);
 }
-/* Login card */
+
+/* ---- Login card ---- */
 .login-card {
   background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   background-color: rgba(38, 38, 42, 0.55);
@@ -63,7 +64,8 @@ select {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.15), inset 0 0 0.5px rgba(255, 255, 255, 0.12), inset 0 0 12px rgba(255, 255, 255, 0.15);
   color: var(--color-text);
 }
-/* Buttons — glass-ui dark pattern */
+
+/* ---- Buttons — dark glass ---- */
 .btn,
 .cbi-button {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.06) 25%, rgba(240, 248, 255, 0.07) 50%, rgba(255, 255, 255, 0.05) 75%, rgba(230, 240, 255, 0.06) 100%);
@@ -100,26 +102,30 @@ select {
 .cbi-button-reset:active {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-/* Sidebar */
+
+/* ---- Sidebar ---- */
 #sidebar {
   background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 20%, rgba(240, 248, 255, 0.08) 45%, rgba(255, 255, 255, 0.06) 70%, rgba(230, 240, 255, 0.07) 100%);
   background-color: rgba(38, 38, 42, 0.55);
   border-color: rgba(255, 255, 255, 0.14);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.06);
 }
-/* Header bar */
+
+/* ---- Header bar ---- */
 #header {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.06);
 }
-/* Page actions bar */
+
+/* ---- Page actions bar ---- */
 .cbi-page-actions {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.06);
 }
-/* Nav hover & active */
+
+/* ---- Nav hover & active ---- */
 .nav-item:hover {
   background: rgba(255, 255, 255, 0.06);
 }
@@ -130,14 +136,12 @@ select {
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.12), inset 0 0 8px rgba(255, 255, 255, 0.08);
 }
-/* Sub-item active — slider handles highlight */
 .nav-sub .nav-item.active {
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-/* Sliding selector — dark glass */
 .nav-sub .nav-slider {
   background: rgba(255, 255, 255, 0.08);
   border: 0.5px solid rgba(255, 255, 255, 0.12);
@@ -145,7 +149,8 @@ select {
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.08), inset 0 0 4px rgba(255, 255, 255, 0.03);
 }
-/* Header tabs */
+
+/* ---- Header tabs ---- */
 .header-tab:hover {
   background: rgba(255, 255, 255, 0.06);
   color: var(--color-text);
@@ -156,7 +161,6 @@ select {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-/* Tab slider — dark glass */
 .tab-slider {
   background: rgba(255, 255, 255, 0.1);
   border: 0.5px solid rgba(255, 255, 255, 0.12);
@@ -164,7 +168,8 @@ select {
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.06);
 }
-/* Sub-nav bar */
+
+/* ---- Sub-nav bar ---- */
 #header-sub {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   border-color: rgba(255, 255, 255, 0.15);
@@ -179,7 +184,8 @@ select {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-/* Header glass pills */
+
+/* ---- Header glass pills ---- */
 .header-title,
 #status-indicators,
 .header-actions {
@@ -187,7 +193,8 @@ select {
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0.5px 0 rgba(255, 255, 255, 0.06);
 }
-/* Theme toggle */
+
+/* ---- Theme toggle ---- */
 .theme-toggle:hover {
   background: rgba(255, 255, 255, 0.08);
 }
@@ -196,7 +203,8 @@ select {
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 0 0.5px rgba(255, 255, 255, 0.12), inset 0 1px 6px rgba(255, 255, 255, 0.12);
 }
-/* Tabs */
+
+/* ---- Tabs ---- */
 .cbi-tabmenu {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   border-color: rgba(255, 255, 255, 0.15);
@@ -209,21 +217,25 @@ select {
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.12), inset 0 0 8px rgba(255, 255, 255, 0.08);
 }
-/* Section fold button */
+
+/* ---- Section fold button ---- */
 .cbi-section.fade-in .cbi-title > div:last-child span:hover {
   background: rgba(255, 255, 255, 0.08);
 }
-/* Table row hover */
+
+/* ---- Table row hover ---- */
 table tbody tr:hover td,
 .table .tr:hover .td {
   background: rgba(255, 255, 255, 0.03);
 }
-/* Pre / code */
+
+/* ---- Pre / code ---- */
 pre,
 #syslog {
   background: rgba(255, 255, 255, 0.04);
 }
-/* Alert colors adjusted for dark */
+
+/* ---- Alerts ---- */
 .alert-message,
 .cbi-section-error {
   background: rgba(100, 210, 255, 0.08);
@@ -248,20 +260,21 @@ pre,
   background: rgba(48, 209, 88, 0.1);
   border-color: rgba(48, 209, 88, 0.25);
 }
-/* Diagnostics & file browser in dark */
+
+/* ---- Diagnostics & file browser ---- */
 #diag-rc-output,
 .cbi-filebrowser {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 6px rgba(255, 255, 255, 0.04);
 }
-/* Ifacebox zone header in dark — slightly brighter tint */
+
+/* ---- Interface boxes ---- */
 .ifacebox-head[style*="background-color"] {
   background-color: rgba(var(--zone-color-rgb), 0.2) !important;
   border-bottom-color: rgba(var(--zone-color-rgb), 0.25) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-/* Zone badges in dark — tint zone color instead of opaque background */
 .zonebadge[style*="background-color"] {
   background-color: rgba(var(--zone-color-rgb), 0.25) !important;
   border-color: rgba(var(--zone-color-rgb), 0.3);
@@ -271,27 +284,25 @@ pre,
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 0 4px rgba(255, 255, 255, 0.03);
 }
-/* Ifacebox in dark */
 .ifacebadge {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 0 4px rgba(255, 255, 255, 0.03);
 }
-/* Port grid boxes in dark — glass-ui dark card */
+
+/* ---- Port grid boxes — visual only (no layout) ---- */
 div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.07) 25%, rgba(240, 248, 255, 0.08) 50%, rgba(255, 255, 255, 0.06) 75%, rgba(230, 240, 255, 0.07) 100%) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(255, 255, 255, 0.12) inset, 0 0 12px rgba(255, 255, 255, 0.15) inset !important;
 }
-/* Network status table badges in dark */
-.network-status-table .ifacebox-body .ifacebadge {
-  background: rgba(255, 255, 255, 0.06);
-}
-/* Dropdown open items hover */
+
+/* ---- Dropdown open items hover ---- */
 .cbi-dropdown[open] > ul.dropdown > li:hover {
   background: rgba(255, 255, 255, 0.06);
 }
-/* Progressbar */
+
+/* ---- Progressbar ---- */
 .cbi-progressbar {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.06);
@@ -304,11 +315,13 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
   color: var(--color-text);
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
-/* Ifacebox-body itemlist labels */
+
+/* ---- Ifacebox-body labels ---- */
 .ifacebox-body > span > .nowrap > strong {
   color: var(--color-text-tertiary);
 }
-/* UCI Changes dialog in dark */
+
+/* ---- UCI Changes dialog ---- */
 .uci-change-legend-label > ins {
   background-color: rgba(48, 209, 88, 0.3);
   border-color: rgba(48, 209, 88, 0.5);
@@ -333,54 +346,13 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
   background-color: rgba(100, 210, 255, 0.1);
   border-color: rgba(100, 210, 255, 0.18);
 }
-/* Selection */
+
+/* ---- Selection ---- */
 ::selection {
   background: rgba(var(--color-primary-rgb), 0.35);
 }
 
-/* ==========================================================================
-   Table Input & Checkbox Sizing Fix — Dark Mode
-   Match cascade.css table fixes with dark-appropriate backgrounds.
-   ========================================================================== */
-
-/* Table inputs in dark — darker background, no max-width cap */
-.table .td input[type="text"],
-.table .td input[type="password"],
-.table .td input[type="number"],
-.table .td .cbi-input-text,
-.table .td .cbi-input-password,
-table.cbi-section-table .td input[type="text"],
-table.cbi-section-table .td input[type="password"],
-table.cbi-section-table .td input[type="number"],
-table.cbi-section-table .td .cbi-input-text,
-table.cbi-section-table .td .cbi-input-password,
-.table .tr .td input[type="text"],
-.table .tr .td input[type="password"],
-.table .tr .td input[type="number"],
-.table .tr .td .cbi-input-text,
-.table .tr .td .cbi-input-password {
-  background: rgba(44, 44, 46, 0.55);
-  border-color: var(--color-border-strong);
-}
-
-/* Select in tables — dark background */
-.table .td select,
-.table .tr .td select,
-table.cbi-section-table .td select {
-  background: rgba(44, 44, 46, 0.55);
-  border-color: var(--color-border-strong);
-}
-
-/* Dynamic list items in tables — dark sizing */
-.table .td .cbi-dynlist > .item > span,
-.table .td .cbi-dynlist > .add-item input,
-.table .tr .td .cbi-dynlist > .item > span,
-.table .tr .td .cbi-dynlist > .add-item input {
-  background: var(--color-bg-elevated);
-  border-color: var(--color-border);
-}
-
-/* Checkbox & radio in dark — ensure accent color uses dark primary */
+/* ---- Checkbox & radio accent ---- */
 input[type="checkbox"],
 input[type="radio"] {
   accent-color: var(--color-primary);

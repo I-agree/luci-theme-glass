@@ -1078,7 +1078,7 @@ select {
 
 /* ---- Page actions bar — visual only ---- */
 .cbi-page-actions {
-  text-align: right; 
+  text-align: right;
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-xl);
   margin-top: var(--space-xl);
@@ -1090,7 +1090,12 @@ select {
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.12);
 }
 
-/* ---- Tables — visual only ---- */
+/* ---- Tables — visual + full width ---- */
+.table,
+table.cbi-section-table {
+  width: 100%;
+  border-collapse: collapse;
+}
 .table thead tr th,
 table.cbi-section-table thead tr th,
 .table .tr.table-titles th,
@@ -1324,8 +1329,9 @@ table.cbi-section-table .tr:hover .td {
 }
 .alert-message.success > h4 { color: var(--color-success); }
 
-/* ---- Progress bars — visual only ---- */
+/* ---- Progress bars — visual + full width ---- */
 .cbi-progressbar {
+  width: 100%;
   position: relative;
   height: 22px;
   background: rgba(0, 0, 0, 0.06);
@@ -1762,7 +1768,7 @@ body.modal-overlay-active #modal_overlay {
 .cbi-tooltip.left { left: auto; right: 0; }
 .cbi-tooltip-container:hover > .cbi-tooltip { display: block; }
 
-/* System log / pre — visual only */
+/* System log / pre — visual + full width */
 #syslog {
   width: 100%;
   font-family: var(--font-mono);
@@ -1774,6 +1780,7 @@ body.modal-overlay-active #modal_overlay {
   word-break: break-all;
 }
 pre {
+  width: 100%;
   background: rgba(0, 0, 0, 0.04);
   border-radius: var(--radius-md);
   padding: var(--space-lg);
@@ -1789,8 +1796,9 @@ pre {
   padding: var(--space-sm) 0;
 }
 
-/* Diagnostics output — visual only */
+/* Diagnostics output — visual + full width */
 #diag-rc-output {
+  width: 100%;
   border-radius: var(--radius-md);
   padding: var(--space-lg);
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
@@ -1801,8 +1809,9 @@ pre {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
 }
 
-/* File browser — visual only */
+/* File browser — visual + full width */
 .cbi-filebrowser {
+  width: 100%;
   border-radius: var(--radius-md);
   padding: var(--space-lg);
   background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);

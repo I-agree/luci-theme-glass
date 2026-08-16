@@ -1923,3 +1923,14 @@ progress::-moz-progress-bar {
 /* (Injected by header.ut as <style id="dark-styles"> — keep your existing
    dark mode block as-is, it's already visual-only. Just make sure to remove
    any width/display/flex rules from it too.) */
+
+.network-status-table {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.network-status-table > .ifacebox {
+  flex: 1 1 calc(50% - 0.25em);
+  min-width: 280px;
+}

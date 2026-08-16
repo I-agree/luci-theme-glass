@@ -832,7 +832,7 @@ body.has-sub-nav #content-wrap {
 .cbi-value:has(> .cbi-value-title):has(> .cbi-value-field) {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  align-items: center;
+  align-items: start;
   padding: var(--space-sm) 0;
   border-bottom: 0.5px solid var(--color-separator);
 }

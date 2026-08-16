@@ -147,7 +147,7 @@
      render the section as the *only* child of .cbi-value — no title, no
      value-field wrapper. As a flex item with default `flex: 0 1 auto` it
      shrinks to content width, leaving a big empty right zone
-     ([#8](https://github.com/rchen14b/luci-theme-glass/issues/8)). Switch
+     ([#8](https://github.com/I-agree/luci-theme-glass/issues/8)). Switch
      the row to block so the section spans full width. */
   &:has(> .cbi-section),
   &:has(> table) {
@@ -782,7 +782,7 @@ table.cbi-section-table {
          (e.g. Network Interfaces > Device dropdown with "unspecified").
          Without the :not([display]) guard the placeholder is hidden and
          the dropdown appears empty except for the arrow
-         ([#6](https://github.com/rchen14b/luci-theme-glass/issues/6)). */
+         ([#6](https://github.com/I-agree/luci-theme-glass/issues/6)). */
       &[placeholder]:not([display]) {
         display: none;
       }
@@ -819,7 +819,7 @@ table.cbi-section-table {
        on available viewport space. LuCI's inline `max-height` can clamp
        to ~65px when the trigger is near the viewport edge, so override
        with !important (matches argon).
-       ([#6](https://github.com/rchen14b/luci-theme-glass/issues/6)) */
+       ([#6](https://github.com/I-agree/luci-theme-glass/issues/6)) */
     position: absolute;
     z-index: var(--z-modal);
     width: auto;
@@ -1140,7 +1140,7 @@ input[type="radio"] {
     /* Flatten any .cbi-section nested directly inside a modal — the modal
        itself already has glass background + padding, so the inner section
        creates a visible box-in-box with extra padding
-       ([#6](https://github.com/rchen14b/luci-theme-glass/issues/6)). */
+       ([#6](https://github.com/I-agree/luci-theme-glass/issues/6)). */
     > .cbi-section,
     > form > .cbi-section,
     > .cbi-map > .cbi-section {

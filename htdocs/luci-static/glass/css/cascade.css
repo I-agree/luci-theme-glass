@@ -1104,57 +1104,81 @@ select {
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.12);
 }
 
-/* ---- Tables — visual + full width ---- */
+/* ---- Tables — visual + proper column distribution ---- */
 .table,
 table.cbi-section-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: auto;
 }
+
+/* Table header cells — compact padding, no-wrap to prevent vertical text */
 .table thead tr th,
 table.cbi-section-table thead tr th,
-.table .tr.table-titles th,
-table.cbi-section-table .tr.table-titles th,
+.table .tr.table-titles .th,
+table.cbi-section-table .tr.table-titles .th,
 .table thead tr .th,
 table.cbi-section-table thead tr .th {
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-sm) var(--space-sm);
   text-align: left;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-separator);
+  white-space: nowrap;
 }
+
+/* Table body cells — compact padding */
 .table tbody tr td,
 table.cbi-section-table tbody tr td,
-.table .tr td,
-table.cbi-section-table .tr td,
-.table tbody tr .td,
-table.cbi-section-table tbody tr .td,
 .table .tr .td,
 table.cbi-section-table .tr .td {
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-sm) var(--space-sm);
   border-bottom: 0.5px solid var(--color-separator);
   font-size: var(--font-size-sm);
   vertical-align: middle;
 }
+
+/* Last row no border */
 .table tbody tr:last-child td,
 table.cbi-section-table tbody tr:last-child td,
-.table .tr:last-child td,
-table.cbi-section-table .tr:last-child td,
-.table tbody tr:last-child .td,
-table.cbi-section-table tbody tr:last-child .td,
 .table .tr:last-child .td,
 table.cbi-section-table .tr:last-child .td {
   border-bottom: none;
 }
+
+/* Row hover */
 .table tbody tr:hover td,
 table.cbi-section-table tbody tr:hover td,
-.table .tr:hover td,
-table.cbi-section-table .tr:hover td,
-.table tbody tr:hover .td,
-table.cbi-section-table tbody tr:hover .td,
 .table .tr:hover .td,
 table.cbi-section-table .tr:hover .td {
   background: rgba(0, 0, 0, 0.02);
+}
+
+/* All td nowrap to prevent vertical text wrapping */
+.table .td,
+table.table td.td {
+  white-space: nowrap;
+}
+
+/* Actions column: shrink-to-fit so buttons don't steal space */
+.td.cbi-section-actions {
+  white-space: nowrap;
+  width: 1%;
+  text-align: right;
+}
+
+.td.cbi-section-actions > div {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.td.cbi-section-actions .btn {
+  padding: 2px 8px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
 }
 
 /* ---- CBI Dropdown — visual only ---- */
@@ -1897,29 +1921,3 @@ progress::-moz-progress-bar {
 /* (Injected by header.ut as <style id="dark-styles"> — keep your existing
    dark mode block as-is, it's already visual-only. Just make sure to remove
    any width/display/flex rules from it too.) */
-
-/* ---- Fix table column width distribution ---- */
-.table tbody tr td.td,
-table.table tr td.td {
-  white-space: nowrap;
-}
-
-/* Actions column: don't let buttons steal all the space */
-.td.cbi-section-actions {
-  white-space: nowrap;
-  width: 1%;  /* Shrink-to-fit: only take as much as needed */
-}
-
-/* Ensure button group stays compact */
-.td.cbi-section-actions > div {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 4px;
-  justify-content: flex-end;
-}
-
-.td.cbi-section-actions .btn {
-  padding: 2px 8px;
-  font-size: var(--font-size-sm);
-  white-space: nowrap;
-}

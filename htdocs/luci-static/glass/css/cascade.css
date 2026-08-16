@@ -841,7 +841,8 @@ body.has-sub-nav #content-wrap {
   color: var(--color-text);
 }
 .cbi-value-field {
-  /* LuCI renders controls here — no visual override needed */
+  width: 100%;
+  min-width: 0;
 }
 .cbi-value-description {
   grid-column: 1 / -1;

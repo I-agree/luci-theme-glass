@@ -1764,6 +1764,7 @@ body.modal-overlay-active #modal_overlay {
 
 /* System log / pre — visual only */
 #syslog {
+  width: 100%;
   font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   background: rgba(0, 0, 0, 0.04);

@@ -826,21 +826,27 @@ body.has-sub-nav #content-wrap {
 }
 
 /* ---- CBI Value rows — visual + native grid layout ---- */
-.cbi-value {
+/* Apply grid ONLY to .cbi-value that has both a title and a field child,
+   i.e. real form rows. Use :has() for precise targeting. */
+.cbi-value:has(> .cbi-value-title):has(> .cbi-value-field) {
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
   padding: var(--space-sm) 0;
   border-bottom: 0.5px solid var(--color-separator);
 }
-.cbi-value:last-child {
+.cbi-value:has(> .cbi-value-title):has(> .cbi-value-field):last-child {
   border-bottom: none;
 }
 
-/* Reset grid for .cbi-value inside section tables (LuCI JS rendered tables) */
-.cbi-section-table .cbi-value,
-.table .cbi-value {
-  display: contents;
+/* Exclude .cbi-value inside any table context */
+.table .cbi-value,
+table .cbi-value,
+.cbi-section-table .cbi-value {
+  display: revert !important;
+  grid-template-columns: none !important;
+  padding: 0 !important;
+  border-bottom: none !important;
 }
 
 .cbi-value-title {

@@ -826,31 +826,21 @@ body.has-sub-nav #content-wrap {
 }
 
 /* ---- CBI Value rows — visual + native grid layout ---- */
-/* Only apply grid to direct children of .cbi-section (form rows),
-   NOT to .cbi-value inside tables or other nested contexts */
-.cbi-section > .cbi-value,
-.cbi-map > .cbi-section > .cbi-value,
-.cbi-section-node > .cbi-value {
+.cbi-value {
   display: grid;
   grid-template-columns: 1fr 2fr;
   align-items: center;
   padding: var(--space-sm) 0;
   border-bottom: 0.5px solid var(--color-separator);
 }
-.cbi-section > .cbi-value:last-child,
-.cbi-map > .cbi-section > .cbi-value:last-child,
-.cbi-section-node > .cbi-value:last-child {
+.cbi-value:last-child {
   border-bottom: none;
 }
 
-/* Reset: .cbi-value inside tables should NOT be grid */
-.table .cbi-value,
-table.cbi-section-table .cbi-value,
-.cbi-section-table .cbi-value {
-  display: revert;
-  grid-template-columns: none;
-  padding: 0;
-  border-bottom: none;
+/* Reset grid for .cbi-value inside section tables (LuCI JS rendered tables) */
+.cbi-section-table .cbi-value,
+.table .cbi-value {
+  display: contents;
 }
 
 .cbi-value-title {
@@ -858,7 +848,7 @@ table.cbi-section-table .cbi-value,
   color: var(--color-text);
 }
 .cbi-value-field {
-  /* no width/min-width overrides — let natural flow work */
+  min-width: 0;
 }
 .cbi-value-description {
   grid-column: 1 / -1;

@@ -52,7 +52,7 @@ jobs:
           # Sign with usign key (signify-openbsd is compatible)
           # opkg verifies sig against the uncompressed Packages file saved to /var/opkg-lists/
           sudo apt-get install -y -qq signify-openbsd >/dev/null 2>&1
-          printf '%s\n' "$USIGN_SEC_KEY" > _tmp/glass.sec
+          echo "$USIGN_SEC_KEY" > _tmp/glass.sec
           signify-openbsd -S -s _tmp/glass.sec -m Packages -x Packages.sig
           echo "Packages signed successfully"
           cat Packages.sig
@@ -68,7 +68,7 @@ jobs:
           cp "dist/$APK" dist/apk_staging/
 
           # Write RSA private key (name must match public key for apk to match)
-          printf '%s\n' "$APK_SEC_KEY" > dist/apk_staging/glass-apk.rsa
+          echo "$APK_SEC_KEY" > dist/apk_staging/glass-apk.rsa
           chmod 600 dist/apk_staging/glass-apk.rsa
 
           # Generate and sign packages.adb using the same Alpine container

@@ -104,7 +104,6 @@
     <img class="login-logo" src="{{ media }}/img/glass-logo.svg" alt="Logo">
     <h1 class="login-title">{{ hostname }}</h1>
     <p class="login-subtitle">{{ _('Sign in to continue') }}</p>
-    <p class="login-version">GlassTheme v{{ glass_version }}</p>
 
     {% if (fuser): %}
     <div class="login-error">

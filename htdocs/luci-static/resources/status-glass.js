@@ -98,25 +98,55 @@ return baseclass.extend({
 		if (!this.netChecked) {
 			this.netChecked = true;
 			L.resolveDefault(callInterfaceDump(), []).then(function(ifaces) {
-				/* Find WAN device — prefer 'wan' over 'wan6' */
 				var wanDev = null;
+
+				/* 1. Prefer canonical wan / wan6 */
 				for (var i = 0; i < ifaces.length; i++) {
-					var iface = ifaces[i];
-					if (iface.interface === 'wan') {
-						wanDev = iface.l3_device || iface.device || null;
-						break;
-					}
-				}
-				if (!wanDev) {
-					for (var i = 0; i < ifaces.length; i++) {
-						if (ifaces[i].interface === 'wan6') {
-							wanDev = ifaces[i].l3_device || ifaces[i].device || null;
-							break;
-						}
+					var n = ifaces[i].interface;
+					if (n === 'wan' || n === 'wan6') {
+						wanDev = ifaces[i].l3_device || ifaces[i].device || null;
+						if (wanDev) break;
 					}
 				}
 
-				self.resolvePhysicalDevice(wanDev || 'wan');
+				/* 2. Fallback: interface carrying the default route */
+				if (!wanDev) {
+					for (var i = 0; i < ifaces.length; i++) {
+						if (ifaces[i].route && ifaces[i].route.length) {
+							for (var j = 0; j < ifaces[i].route.length; j++) {
+								var r = ifaces[i].route[j];
+								if ((r.target === '0.0.0.0' && r.mask === 0) ||
+								    (r.target === '::' && r.mask === 0)) {
+									wanDev = ifaces[i].l3_device || ifaces[i].device || null;
+									break;
+								}
+							}
+						}
+						if (wanDev) break;
+					}
+				}
+
+				/* 3. Fallback: first non-loopback interface with a real device
+				      that is not the LAN bridge's pure management port.
+				      Skip 'loopback' and prefer devices whose name looks like a
+				      physical NIC (eth*, en*, wwan*, usb*, ppp*, ...) */
+				if (!wanDev) {
+					var candidate = null;
+					for (var i = 0; i < ifaces.length; i++) {
+						var iface = ifaces[i];
+						if (iface.interface === 'loopback') continue;
+						var dev = iface.l3_device || iface.device;
+						if (!dev || dev === 'lo') continue;
+						if (/^(eth|en|wwan|usb|ppp|rmnet|cdc)/.test(dev)) {
+							wanDev = dev;
+							break;
+						}
+						if (!candidate) candidate = dev;
+					}
+					if (!wanDev) wanDev = candidate;
+				}
+
+				self.resolvePhysicalDevice(wanDev || 'eth0');
 			});
 		} else if (this.netDevice) {
 			this.pollNetwork();

@@ -207,3 +207,71 @@ msgstr "用户名"
 msgid ""
 "You must enable JavaScript in your browser or LuCI will not work properly."
 msgstr "您必须在浏览器中启用 JavaScript，否则 LuCI 将无法正常工作。"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "CPU Load"
+msgstr "CPU 负载"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "Memory Usage"
+msgstr "内存使用"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "Uptime"
+msgstr "运行时间"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "Throughput"
+msgstr "吞吐量"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "CPU"
+msgstr "CPU"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "load"
+msgstr "负载"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "core"
+msgstr "核心"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "cores"
+msgstr "核心"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "RAM"
+msgstr "内存"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "used"
+msgstr "已用"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "Link"
+msgstr "链路"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "day"
+msgstr "天"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "days"
+msgstr "天"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "hour"
+msgstr "小时"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "hours"
+msgstr "小时"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "min"
+msgstr "分钟"
+
+#: htdocs/luci-static/resources/status-glass.js
+msgid "mins"
+msgstr "分钟"

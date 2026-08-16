@@ -76,9 +76,9 @@ return baseclass.extend({
 		this.container = document.getElementById('status-indicators');
 		if (!this.container) return;
 
-		this.cpuEl = this.createIndicator('cpu', 'CPU Load');
-		this.ramEl = this.createIndicator('ram', 'Memory Usage');
-		this.uptimeEl = this.createIndicator('uptime', 'Uptime');
+		this.cpuEl = this.createIndicator('cpu', _('CPU Load'));
+		this.ramEl = this.createIndicator('ram', _('Memory Usage'));
+		this.uptimeEl = this.createIndicator('uptime', _('Uptime'));
 
 		this.container.appendChild(this.cpuEl);
 		this.container.appendChild(this.ramEl);
@@ -149,7 +149,7 @@ return baseclass.extend({
 					self.netLabel = self.netDevice;
 					self.netDevice = phys.conduit;
 				}
-				self.netEl = self.createIndicator('net', 'Throughput');
+				self.netEl = self.createIndicator('net', _('Throughput'));
 				self.container.insertBefore(self.netEl, self.uptimeEl);
 				self.pollNetwork();
 			});
@@ -175,9 +175,9 @@ return baseclass.extend({
 
 			this.cpuEl.querySelector('.indicator-value').textContent = pctStr;
 			try { sessionStorage.setItem('glass-status-cpu', pctStr); } catch(e) {}
-			this.cpuEl.title = 'CPU: ' + pctStr + ' (load ' + load1.toFixed(2) +
-				' / ' + load5 + ' / ' + load15 + ' on ' + this.numCores +
-				(this.numCores === 1 ? ' core)' : ' cores)');
+			this.cpuEl.title = _('CPU') + ': ' + pctStr + ' (' + _('load') + ' ' + load1.toFixed(2) +
+				' / ' + load5 + ' / ' + load15 + ' / ' + this.numCores +
+				' ' + (this.numCores === 1 ? _('core') : _('cores')) + ')';
 
 			var level = pct < 60 ? 'ok' : pct < 85 ? 'warn' : 'crit';
 			this.setLevel(this.cpuEl, level);
@@ -190,7 +190,7 @@ return baseclass.extend({
 			var pct = (used / total * 100).toFixed(0);
 			this.ramEl.querySelector('.indicator-value').textContent = pct + '%';
 			try { sessionStorage.setItem('glass-status-ram', pct + '%'); } catch(e) {}
-			this.ramEl.title = 'RAM: ' + this.formatBytes(used) + ' / ' + this.formatBytes(total) + ' (' + pct + '% used)';
+			this.ramEl.title = _('RAM') + ': ' + this.formatBytes(used) + ' / ' + this.formatBytes(total) + ' (' + pct + '% ' + _('used') + ')';
 
 			var level = pct < 60 ? 'ok' : pct < 85 ? 'warn' : 'crit';
 			this.setLevel(this.ramEl, level);
@@ -199,7 +199,7 @@ return baseclass.extend({
 		if (info.uptime) {
 			this.uptimeEl.querySelector('.indicator-value').textContent = this.formatUptime(info.uptime);
 			try { sessionStorage.setItem('glass-status-uptime', this.formatUptime(info.uptime)); } catch(e) {}
-			this.uptimeEl.title = 'Uptime: ' + this.formatUptimeFull(info.uptime);
+			this.uptimeEl.title = _('Uptime') + ': ' + this.formatUptimeFull(info.uptime);
 		}
 	},
 
@@ -222,7 +222,7 @@ return baseclass.extend({
 				try { sessionStorage.setItem('glass-status-net', netText); } catch(e) {}
 				var tip = (this.netLabel || this.netDevice) + ': \u2193 ' + this.formatSpeedFull(rxSpeed) + ' / \u2191 ' + this.formatSpeedFull(txSpeed);
 				if (this.linkSpeed)
-					tip += ' (Link: ' + (this.linkSpeed >= 1000 ? (this.linkSpeed / 1000) + ' Gbps' : this.linkSpeed + ' Mbps') + ')';
+					tip += ' (' + _('Link') + ': ' + (this.linkSpeed >= 1000 ? (this.linkSpeed / 1000) + ' Gbps' : this.linkSpeed + ' Mbps') + ')';
 				this.netEl.title = tip;
 
 				var peak = Math.max(rxSpeed, txSpeed);
@@ -248,10 +248,10 @@ return baseclass.extend({
 		var h = Math.floor((s % 86400) / 3600);
 		var m = Math.floor((s % 3600) / 60);
 		var parts = [];
-		if (d > 0) parts.push(d + (d === 1 ? ' day' : ' days'));
-		if (h > 0) parts.push(h + (h === 1 ? ' hour' : ' hours'));
-		if (m > 0) parts.push(m + (m === 1 ? ' min' : ' mins'));
-		return parts.join(', ') || '< 1 min';
+		if (d > 0) parts.push(d + ' ' + (d === 1 ? _('day') : _('days')));
+		if (h > 0) parts.push(h + ' ' + (h === 1 ? _('hour') : _('hours')));
+		if (m > 0) parts.push(m + ' ' + (m === 1 ? _('min') : _('mins')));
+		return parts.join(', ') || '< 1 ' + _('min');
 	},
 
 	formatBytes: function(bytes) {

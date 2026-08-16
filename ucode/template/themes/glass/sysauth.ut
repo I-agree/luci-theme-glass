@@ -138,7 +138,7 @@
     var btn=document.getElementById('theme-toggle');
     if(!btn)return;
     var order=['auto','light','dark'];
-    var labels={auto:_('Theme')+': '+_('Auto'),light:_('Theme')+': '+_('Light'),dark:_('Theme')+': '+_('Dark')};
+    var labels={auto:'{{ _("Theme") }}: {{ _("Auto") }}',light:'{{ _("Theme") }}: {{ _("Light") }}',dark:'{{ _("Theme") }}: {{ _("Dark") }}'};
     var cur=document.documentElement.dataset.theme||'auto';
     btn.title=labels[cur];btn.setAttribute('aria-label',labels[cur]);
     btn.addEventListener('click',function(){

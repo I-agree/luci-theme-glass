@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" id="meta-theme-color" content="#f5f5f7">
+  <title>OpenWrt - LuCI Glass Theme Demo</title>
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/rchen14b/luci-theme-glass@v1.1.6/htdocs/luci-static/glass/img/glass-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rchen14b/luci-theme-glass@v1.1.6/htdocs/luci-static/glass/css/cascade.css">
+  <style id="dark-styles" media="(prefers-color-scheme: dark)">
+    @import url('https://cdn.jsdelivr.net/gh/rchen14b/luci-theme-glass@v1.1.6/htdocs/luci-static/glass/css/dark.css');
+  </style>
+  <style>
+    /* Demo-only styles */
+    #login-view { transition: opacity 0.3s ease, transform 0.3s ease; }
+    #main-view { display: none; opacity: 0; transition: opacity 0.4s ease; }
+    #main-view.visible { opacity: 1; }
+    .page-content { display: none; animation: page-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .page-content.active { display: block; }
+    @keyframes page-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .demo-banner { position: fixed; bottom: 16px; right: 16px; z-index: 700; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; background: rgba(255,255,255,0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 0.5px solid rgba(255,255,255,0.4); box-shadow: 0 2px 16px rgba(0,0,0,0.08); color: #1d1d1f; }
+    .demo-banner a { color: #007AFF; text-decoration: none; font-weight: 500; }
+    html[data-theme="dark"] .demo-banner,
+    @media (prefers-color-scheme: dark) { html[data-theme="auto"] .demo-banner { background: rgba(38,38,42,0.7); border-color: rgba(255,255,255,0.12); color: #f5f5f7; } }
+  </style>
+  <script>
+  (function(){
+    var d=document.getElementById('dark-styles'),m=document.getElementById('meta-theme-color'),s;
+    try{s=localStorage.getItem('glass-theme')}catch(e){}
+    if(s){
+      if(s==='dark'){d.media='all';if(m)m.content='#2c2e3a'}
+      else if(s==='light'){d.media='not all';if(m)m.content='#f5f5f7'}
+      else{s='auto';d.media='(prefers-color-scheme: dark)';if(m)m.content=window.matchMedia('(prefers-color-scheme: dark)').matches?'#2c2e3a':'#f5f5f7'}
+    }else{
+      var media=d.media;
+      if(media==='all')s='dark';else if(media==='not all')s='light';else{s='auto';if(m)m.content=window.matchMedia('(prefers-color-scheme: dark)').matches?'#2c2e3a':'#f5f5f7'}
+    }
+    document.documentElement.dataset.theme=s;
+  })();
+  </script>
+</head>
+<body class="lang_en" data-page="admin-status-overview">
+
+<div id="bg-wrap"></div>
+
+<!-- ============================================================ -->
+<!-- LOGIN VIEW                                                    -->
+<!-- ============================================================ -->
+<div id="login-view">
+  <button class="theme-toggle theme-toggle-float" id="theme-toggle-login" type="button" title="Theme: Auto" aria-label="Theme: Auto">
+    <svg class="theme-icon theme-icon-auto" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="9" r="7.25"/><path d="M9 1.75A7.25 7.25 0 019 16.25" fill="currentColor" stroke="none"/>
+    </svg>
+    <svg class="theme-icon theme-icon-light" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="9" r="3.5"/>
+      <line x1="9" y1="1" x2="9" y2="3"/><line x1="9" y1="15" x2="9" y2="17"/>
+      <line x1="2.87" y1="2.87" x2="4.28" y2="4.28"/><line x1="13.72" y1="13.72" x2="15.13" y2="15.13"/>
+      <line x1="1" y1="9" x2="3" y2="9"/><line x1="15" y1="9" x2="17" y2="9"/>
+      <line x1="2.87" y1="15.13" x2="4.28" y2="13.72"/><line x1="13.72" y1="4.28" x2="15.13" y2="2.87"/>
+    </svg>
+    <svg class="theme-icon theme-icon-dark" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15.54 9.98a7 7 0 01-8.52-8.52 7.5 7.5 0 108.52 8.52z"/>
+    </svg>
+  </button>
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <img class="login-logo" src="https://cdn.jsdelivr.net/gh/rchen14b/luci-theme-glass@v1.1.6/htdocs/luci-static/glass/img/glass-logo.svg" alt="Logo">
+      <h1 class="login-title">OpenWrt</h1>
+      <p class="login-subtitle">Sign in to continue</p>
+      <p class="login-version">GlassTheme v1.1.6</p>
+
+      <form class="login-form" id="login-form">
+        <div class="login-field">
+          <label for="luci_username">Username</label>
+          <input type="text" id="luci_username" name="luci_username" value="root" autocomplete="username">
+        </div>
+        <div class="login-field">
+          <label for="luci_password">Password</label>
+          <input type="password" id="luci_password" name="luci_password" placeholder="(any password)" autocomplete="current-password">
+        </div>
+        <input type="submit" class="login-btn" value="Log in">
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MAIN APP VIEW                                                 -->
+<!-- ============================================================ -->
+<div id="main-view">
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <span class="brand">OpenWrt</span>
+  </div>
+  <nav class="sidebar-nav" id="sidebar-nav">
+    <div class="nav-group">
+
+      <a class="nav-item open" href="#" data-name="status" data-parent="true">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span class="nav-label">Status</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      <div class="nav-sub open">
+        <div class="nav-slider"></div>
+        <a class="nav-item active" href="#" data-page="overview"><span class="nav-label">Overview</span></a>
+        <a class="nav-item" href="#" data-page="routes"><span class="nav-label">Routes</span></a>
+        <a class="nav-item" href="#" data-page="syslog"><span class="nav-label">System Log</span></a>
+        <a class="nav-item" href="#" data-page="dmesg"><span class="nav-label">Kernel Log</span></a>
+        <a class="nav-item" href="#" data-page="processes"><span class="nav-label">Processes</span></a>
+        <a class="nav-item" href="#" data-page="realtime"><span class="nav-label">Realtime Graphs</span></a>
+      </div>
+
+      <a class="nav-item" href="#" data-name="system" data-parent="true">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span class="nav-label">System</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      <div class="nav-sub">
+        <div class="nav-slider"></div>
+        <a class="nav-item" href="#" data-page="settings"><span class="nav-label">System</span></a>
+        <a class="nav-item" href="#" data-page="admin"><span class="nav-label">Administration</span></a>
+        <a class="nav-item" href="#" data-page="software"><span class="nav-label">Software</span></a>
+        <a class="nav-item" href="#" data-page="startup"><span class="nav-label">Startup</span></a>
+        <a class="nav-item" href="#" data-page="crontab"><span class="nav-label">Scheduled Tasks</span></a>
+      </div>
+
+      <a class="nav-item" href="#" data-name="network" data-parent="true">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        <span class="nav-label">Network</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      <div class="nav-sub">
+        <div class="nav-slider"></div>
+        <a class="nav-item" href="#" data-page="interfaces"><span class="nav-label">Interfaces</span></a>
+        <a class="nav-item" href="#" data-page="wireless"><span class="nav-label">Wireless</span></a>
+        <a class="nav-item" href="#" data-page="dhcp"><span class="nav-label">DHCP and DNS</span></a>
+        <a class="nav-item" href="#" data-page="firewall"><span class="nav-label">Firewall</span></a>
+        <a class="nav-item" href="#" data-page="diagnostics"><span class="nav-label">Diagnostics</span></a>
+      </div>
+
+      <a class="nav-item" href="#" data-name="services" data-parent="true">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span class="nav-label">Services</span>
+        <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+      <div class="nav-sub">
+        <div class="nav-slider"></div>
+        <a class="nav-item" href="#" data-page="upnp"><span class="nav-label">UPnP</span></a>
+        <a class="nav-item" href="#" data-page="ddns"><span class="nav-label">Dynamic DNS</span></a>
+      </div>
+
+      <a class="nav-item" href="#" data-name="logout">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span class="nav-label">Logout</span>
+      </a>
+
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="sidebar-version">GlassTheme v1.1.6</span>
+  </div>
+</aside>
+
+<header id="header">
+  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  <nav id="header-nav">
+    <span class="header-title" id="header-title">Overview</span>
+  </nav>
+
+  <div id="status-indicators">
+    <span data-indicator="cpu" data-level="ok" title="Load average: 0.42 / 0.38 / 0.31 (1 / 5 / 15 min)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="indicator-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 9 4 4 7 11 10 2 13 9"/></svg>
+      <span class="indicator-value">0.42</span>
+    </span>
+    <span data-indicator="ram" data-level="ok" title="RAM: 156 MB / 512 MB (30% used)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="indicator-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="10" height="10" rx="1"/><line x1="5" y1="0" x2="5" y2="2"/><line x1="9" y1="0" x2="9" y2="2"/><line x1="5" y1="12" x2="5" y2="14"/><line x1="9" y1="12" x2="9" y2="14"/><line x1="0" y1="5" x2="2" y2="5"/><line x1="0" y1="9" x2="2" y2="9"/><line x1="12" y1="5" x2="14" y2="5"/><line x1="12" y1="9" x2="14" y2="9"/></svg>
+      <span class="indicator-value">30%</span>
+    </span>
+    <span data-indicator="net" data-level="active" title="wan: ↓ 12.4 Mbps / ↑ 1.8 Mbps (Link: 1 Gbps)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="indicator-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="1" x2="7" y2="13"/><polyline points="3 4 7 1 11 4"/><polyline points="3 10 7 13 11 10"/></svg>
+      <span class="indicator-value">↓12.4M ↑1.8M</span>
+    </span>
+    <span data-indicator="uptime" data-level="ok" title="Uptime: 3 days, 14 hours, 22 mins">
+      <svg xmlns="http://www.w3.org/2000/svg" class="indicator-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="6"/><polyline points="7 3 7 7 10 9"/></svg>
+      <span class="indicator-value">3d 14h</span>
+    </span>
+  </div>
+
+  <div class="header-actions" id="indicators">
+    <button class="theme-toggle" id="theme-toggle-main" type="button" title="Theme: Auto" aria-label="Theme: Auto">
+      <svg class="theme-icon theme-icon-auto" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="9" r="7.25"/><path d="M9 1.75A7.25 7.25 0 019 16.25" fill="currentColor" stroke="none"/>
+      </svg>
+      <svg class="theme-icon theme-icon-light" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="9" r="3.5"/>
+        <line x1="9" y1="1" x2="9" y2="3"/><line x1="9" y1="15" x2="9" y2="17"/>
+        <line x1="2.87" y1="2.87" x2="4.28" y2="4.28"/><line x1="13.72" y1="13.72" x2="15.13" y2="15.13"/>
+        <line x1="1" y1="9" x2="3" y2="9"/><line x1="15" y1="9" x2="17" y2="9"/>
+        <line x1="2.87" y1="15.13" x2="4.28" y2="13.72"/><line x1="13.72" y1="4.28" x2="15.13" y2="2.87"/>
+      </svg>
+      <svg class="theme-icon theme-icon-dark" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15.54 9.98a7 7 0 01-8.52-8.52 7.5 7.5 0 108.52 8.52z"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav id="header-sub"></nav>
+
+<main id="content-wrap">
+  <div id="content">
+    <div id="maincontent">
+
+      <!-- ============================== -->
+      <!-- PAGE: Overview                  -->
+      <!-- ============================== -->
+      <div class="page-content active" id="page-overview">
+
+        <div class="cbi-section">
+          <h3>System</h3>
+          <table class="table cbi-section-table">
+            <tbody>
+              <tr class="tr"><td class="td left" width="33%">Hostname</td><td class="td left"><strong>OpenWrt</strong></td></tr>
+              <tr class="tr"><td class="td left">Model</td><td class="td left">Raspberry Pi 4 Model B Rev 1.5</td></tr>
+              <tr class="tr"><td class="td left">Architecture</td><td class="td left">ARMv8 Processor rev 3 (aarch64)</td></tr>
+              <tr class="tr"><td class="td left">Target Platform</td><td class="td left">bcm27xx/bcm2711</td></tr>
+              <tr class="tr"><td class="td left">Firmware Version</td><td class="td left">OpenWrt SNAPSHOT r28345-abc1234</td></tr>
+              <tr class="tr"><td class="td left">Kernel Version</td><td class="td left">6.6.63</td></tr>
+              <tr class="tr"><td class="td left">Local Time</td><td class="td left" id="local-time">2026-03-09 14:23:15</td></tr>
+              <tr class="tr"><td class="td left">Uptime</td><td class="td left" id="uptime">0h 0m 0s</td></tr>
+              <tr class="tr"><td class="td left">Load Average</td><td class="td left">0.24 0.31 0.28</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cbi-section">
+          <h3>Memory</h3>
+          <table class="table cbi-section-table">
+            <tbody>
+              <tr class="tr">
+                <td class="td left" width="33%">Total Available</td>
+                <td class="td left">
+                  3.84 GiB / 942.12 MiB used (24.0%)
+                  <div class="cbi-progressbar" title="24%"><div style="width:24%"></div></div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td left">Free</td>
+                <td class="td left">2.92 GiB</td>
+              </tr>
+              <tr class="tr">
+                <td class="td left">Buffered</td>
+                <td class="td left">186.45 MiB</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cbi-section">
+          <h3>Storage</h3>
+          <table class="table cbi-section-table">
+            <tbody>
+              <tr class="tr">
+                <td class="td left" width="33%">Root (/)</td>
+                <td class="td left">
+                  28.5 GiB / 3.2 GiB used (11.2%)
+                  <div class="cbi-progressbar" title="11%"><div style="width:11%"></div></div>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td left">Temporary (/tmp)</td>
+                <td class="td left">
+                  1.92 GiB / 12.8 MiB used (0.7%)
+                  <div class="cbi-progressbar" title="1%"><div style="width:1%"></div></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cbi-section">
+          <h3>Network</h3>
+          <div class="network-status-table">
+
+            <div class="ifacebox">
+              <div class="ifacebox-head" style="--zone-color-rgb: 144, 240, 144; background-color: rgb(144, 240, 144);" title="Part of zone lan">
+                <strong>br-lan</strong>
+              </div>
+              <div class="ifacebox-body">
+                <span><span class="nowrap"><strong>Protocol: </strong>Static address</span></span>
+                <span><span class="nowrap"><strong>Uptime: </strong>3d 14h 32m 18s</span></span>
+                <span><span class="nowrap"><strong>IPv4: </strong>192.168.1.1/24</span></span>
+                <span><span class="nowrap"><strong>IPv6: </strong>fd12:3456:789a::1/60</span></span>
+                <div>
+                  <span class="ifacebadge"><span>br-lan</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ifacebox">
+              <div class="ifacebox-head" style="--zone-color-rgb: 240, 144, 144; background-color: rgb(240, 144, 144);" title="Part of zone wan">
+                <strong>wan</strong>
+              </div>
+              <div class="ifacebox-body">
+                <span><span class="nowrap"><strong>Protocol: </strong>DHCP client</span></span>
+                <span><span class="nowrap"><strong>Uptime: </strong>3d 14h 30m 45s</span></span>
+                <span><span class="nowrap"><strong>IPv4: </strong>203.0.113.45/24</span></span>
+                <span><span class="nowrap"><strong>DNS: </strong>8.8.8.8, 8.8.4.4</span></span>
+                <div>
+                  <span class="ifacebadge"><span>eth1</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ifacebox">
+              <div class="ifacebox-head" style="--zone-color-rgb: 144, 240, 144; background-color: rgb(144, 240, 144);" title="Part of zone lan">
+                <strong>docker0</strong>
+              </div>
+              <div class="ifacebox-body">
+                <span><span class="nowrap"><strong>Protocol: </strong>Static address</span></span>
+                <span><span class="nowrap"><strong>Uptime: </strong>3d 14h 32m 10s</span></span>
+                <span><span class="nowrap"><strong>IPv4: </strong>172.17.0.1/16</span></span>
+                <div>
+                  <span class="ifacebadge"><span>docker0</span></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="cbi-section">
+          <h3>Active DHCP Leases</h3>
+          <table class="table cbi-section-table">
+            <thead>
+              <tr class="tr table-titles">
+                <th class="th">Hostname</th>
+                <th class="th">IPv4 Address</th>
+                <th class="th">MAC Address</th>
+                <th class="th">Lease Time Remaining</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr"><td class="td">MacBook-Pro</td><td class="td">192.168.1.100</td><td class="td">A4:83:E7:2B:10:FF</td><td class="td">11h 42m 15s</td></tr>
+              <tr class="tr"><td class="td">iPhone-15</td><td class="td">192.168.1.101</td><td class="td">3C:06:30:4A:BB:22</td><td class="td">10h 15m 33s</td></tr>
+              <tr class="tr"><td class="td">iPad-Air</td><td class="td">192.168.1.102</td><td class="td">F0:18:98:CC:DD:11</td><td class="td">9h 58m 01s</td></tr>
+              <tr class="tr"><td class="td">Pixel-8</td><td class="td">192.168.1.103</td><td class="td">94:B8:6D:EE:FF:44</td><td class="td">8h 30m 22s</td></tr>
+              <tr class="tr"><td class="td">Smart-TV</td><td class="td">192.168.1.120</td><td class="td">00:1A:2B:3C:4D:5E</td><td class="td">5h 12m 48s</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- PAGE: Interfaces                -->
+      <!-- ============================== -->
+      <div class="page-content" id="page-interfaces">
+
+        <div class="cbi-section">
+          <h3>Interface Overview</h3>
+          <table class="table cbi-section-table">
+            <thead>
+              <tr class="tr table-titles">
+                <th class="th cbi-section-table-cell">Interface</th>
+                <th class="th cbi-section-table-cell">Status</th>
+                <th class="th cbi-section-table-cell">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr">
+                <td class="td cbi-value-field" data-name="_ifacebox">
+                  <div class="ifacebox">
+                    <div class="ifacebox-head" style="--zone-color-rgb: 144, 240, 144; background-color: rgb(144, 240, 144);" title="Part of zone lan">
+                      <strong>LAN</strong>
+                    </div>
+                    <div class="ifacebox-body">
+                      <span class="cbi-tooltip-container">
+                        <span>br-lan</span>
+                      </span>
+                      <br><small>Static address</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="td">
+                  <span><span class="nowrap"><strong>Uptime: </strong>3d 14h 32m</span><br></span>
+                  <span><span class="nowrap"><strong>IPv4: </strong>192.168.1.1/24</span><br></span>
+                  <span><span class="nowrap"><strong>IPv6: </strong>fd12:3456:789a::1/60</span><br></span>
+                  <span><span class="nowrap"><strong>RX: </strong>4.23 GiB (3,241,892 Pkts.)</span><br></span>
+                  <span><span class="nowrap"><strong>TX: </strong>12.87 GiB (8,912,445 Pkts.)</span></span>
+                </td>
+                <td class="td cbi-section-actions">
+                  <button class="cbi-button cbi-button-neutral">Restart</button>
+                  <button class="cbi-button cbi-button-apply">Edit</button>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td cbi-value-field" data-name="_ifacebox">
+                  <div class="ifacebox">
+                    <div class="ifacebox-head" style="--zone-color-rgb: 240, 144, 144; background-color: rgb(240, 144, 144);" title="Part of zone wan">
+                      <strong>WAN</strong>
+                    </div>
+                    <div class="ifacebox-body">
+                      <span>eth1</span>
+                      <br><small>DHCP client</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="td">
+                  <span><span class="nowrap"><strong>Uptime: </strong>3d 14h 30m</span><br></span>
+                  <span><span class="nowrap"><strong>IPv4: </strong>203.0.113.45/24</span><br></span>
+                  <span><span class="nowrap"><strong>Gateway: </strong>203.0.113.1</span><br></span>
+                  <span><span class="nowrap"><strong>DNS: </strong>8.8.8.8, 8.8.4.4</span><br></span>
+                  <span><span class="nowrap"><strong>RX: </strong>15.21 GiB (10,123,456 Pkts.)</span><br></span>
+                  <span><span class="nowrap"><strong>TX: </strong>3.89 GiB (2,845,678 Pkts.)</span></span>
+                </td>
+                <td class="td cbi-section-actions">
+                  <button class="cbi-button cbi-button-neutral">Restart</button>
+                  <button class="cbi-button cbi-button-apply">Edit</button>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td cbi-value-field" data-name="_ifacebox">
+                  <div class="ifacebox">
+                    <div class="ifacebox-head" style="--zone-color-rgb: 238, 238, 238; background-color: rgb(238, 238, 238);">
+                      <strong>WG0</strong>
+                    </div>
+                    <div class="ifacebox-body">
+                      <span>wg0</span>
+                      <br><small>WireGuard VPN</small>
+                    </div>
+                  </div>
+                </td>
+                <td class="td">
+                  <span><span class="nowrap"><strong>Uptime: </strong>2d 8h 15m</span><br></span>
+                  <span><span class="nowrap"><strong>IPv4: </strong>10.0.0.1/24</span><br></span>
+                  <span><span class="nowrap"><strong>RX: </strong>512.34 MiB (362,194 Pkts.)</span><br></span>
+                  <span><span class="nowrap"><strong>TX: </strong>1.23 GiB (624,090 Pkts.)</span></span>
+                </td>
+                <td class="td cbi-section-actions">
+                  <button class="cbi-button cbi-button-neutral">Restart</button>
+                  <button class="cbi-button cbi-button-apply">Edit</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="cbi-page-actions">
+            <button class="cbi-button cbi-button-save">Add new interface...</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- PAGE: System Settings           -->
+      <!-- ============================== -->
+      <div class="page-content" id="page-settings">
+
+        <div class="cbi-section">
+          <h3>System Properties</h3>
+          <div class="cbi-section-descr">Here you can configure the basic aspects of your device like its hostname or the timezone.</div>
+
+          <ul class="cbi-tabmenu">
+            <li class="cbi-tab"><a href="#" data-tab="general">General Settings</a></li>
+            <li><a href="#" data-tab="logging">Logging</a></li>
+            <li><a href="#" data-tab="language">Language and Style</a></li>
+          </ul>
+
+          <div class="cbi-tab-content" id="tab-general" data-tab-title="General Settings" data-tab-active="true">
+            <div class="cbi-value">
+              <label class="cbi-value-title">Hostname</label>
+              <div class="cbi-value-field">
+                <input type="text" class="cbi-input-text" value="OpenWrt">
+              </div>
+            </div>
+            <div class="cbi-value">
+              <label class="cbi-value-title">Timezone</label>
+              <div class="cbi-value-field">
+                <select class="cbi-input-select">
+                  <option>UTC</option>
+                  <option selected>America/New York (EST/EDT)</option>
+                  <option>Europe/London (GMT/BST)</option>
+                  <option>Asia/Shanghai (CST)</option>
+                  <option>Asia/Tokyo (JST)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="cbi-tab-content" id="tab-logging" data-tab-title="Logging" data-tab-active="false" style="display:none">
+            <div class="cbi-value">
+              <label class="cbi-value-title">System log buffer size</label>
+              <div class="cbi-value-field">
+                <input type="text" class="cbi-input-text" value="64">
+                <div class="cbi-value-description">KiB</div>
+              </div>
+            </div>
+            <div class="cbi-value">
+              <label class="cbi-value-title">External system log server</label>
+              <div class="cbi-value-field">
+                <input type="text" class="cbi-input-text" placeholder="0.0.0.0">
+              </div>
+            </div>
+            <div class="cbi-value">
+              <label class="cbi-value-title">Log output level</label>
+              <div class="cbi-value-field">
+                <select class="cbi-input-select">
+                  <option>Emergency</option>
+                  <option>Alert</option>
+                  <option>Critical</option>
+                  <option>Error</option>
+                  <option>Warning</option>
+                  <option>Notice</option>
+                  <option selected>Informational</option>
+                  <option>Debug</option>
+                </select>
+              </div>
+            </div>
+            <div class="cbi-value">
+              <label class="cbi-value-title">Cron Log Level</label>
+              <div class="cbi-value-field">
+                <input type="text" class="cbi-input-text" value="5">
+                <div class="cbi-value-description">0 is least verbose, 8 is most verbose</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cbi-tab-content" id="tab-language" data-tab-title="Language and Style" data-tab-active="false" style="display:none">
+            <div class="cbi-value">
+              <label class="cbi-value-title">Language</label>
+              <div class="cbi-value-field">
+                <select class="cbi-input-select">
+                  <option selected>English (en)</option>
+                  <option>Deutsch (de)</option>
+                  <option>Fran&ccedil;ais (fr)</option>
+                  <option>Espa&ntilde;ol (es)</option>
+                  <option>&#x4E2D;&#x6587; (zh_Hans)</option>
+                  <option>&#x65E5;&#x672C;&#x8A9E; (ja)</option>
+                </select>
+              </div>
+            </div>
+            <div class="cbi-value">
+              <label class="cbi-value-title">Design</label>
+              <div class="cbi-value-field">
+                <select class="cbi-input-select">
+                  <option>Bootstrap</option>
+                  <option selected>Glass</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cbi-section">
+          <h3>Time Synchronization</h3>
+          <div class="cbi-value">
+            <label class="cbi-value-title">Enable NTP client</label>
+            <div class="cbi-value-field">
+              <input type="checkbox" checked>
+            </div>
+          </div>
+          <div class="cbi-value">
+            <label class="cbi-value-title">Provide NTP server</label>
+            <div class="cbi-value-field">
+              <input type="checkbox">
+            </div>
+          </div>
+          <div class="cbi-value">
+            <label class="cbi-value-title">NTP server candidates</label>
+            <div class="cbi-value-field">
+              <input type="text" class="cbi-input-text" value="0.openwrt.pool.ntp.org">
+              <br>
+              <input type="text" class="cbi-input-text" value="1.openwrt.pool.ntp.org" style="margin-top:4px">
+              <br>
+              <input type="text" class="cbi-input-text" value="2.openwrt.pool.ntp.org" style="margin-top:4px">
+            </div>
+          </div>
+        </div>
+
+        <div class="cbi-page-actions">
+          <button class="cbi-button cbi-button-save">Save</button>
+          <button class="cbi-button cbi-button-apply">Save &amp; Apply</button>
+          <button class="cbi-button cbi-button-reset">Reset</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="glass-footer">
+  <span>GlassTheme v1.1.6</span>
+  <span class="footer-sep">|</span>
+  <a href="https://github.com/openwrt/luci" target="_blank">LuCI</a>
+  <span class="footer-sep">|</span>
+  <a href="https://openwrt.org" target="_blank">OpenWrt SNAPSHOT</a>
+</footer>
+
+</div><!-- end #main-view -->
+
+<div class="demo-banner">
+  Interactive demo &mdash; <a href="https://github.com/rchen14b/luci-theme-glass" target="_blank">View on GitHub</a>
+</div>
+
+<script src="demo.js"></script>
+<script>
+/* Simulate live status indicator updates */
+(function(){
+  var upSec = 3*86400+14*3600+22*60;
+  function fmt(s){var d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d>0?d+'d '+h+'h':h+'h '+m+'m';}
+  function fmtFull(s){var d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60),p=[];if(d)p.push(d+(d===1?' day':' days'));if(h)p.push(h+(h===1?' hour':' hours'));if(m)p.push(m+(m===1?' min':' mins'));return p.join(', ')||'< 1 min';}
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function fmtSpd(bps){var b=bps*8;if(b>=1e6)return(b/1e6).toFixed(1)+'M';if(b>=1e3)return(b/1e3).toFixed(1)+'K';return Math.round(b)+'b';}
+  function fmtSpdF(bps){var b=bps*8;if(b>=1e9)return(b/1e9).toFixed(1)+' Gbps';if(b>=1e6)return(b/1e6).toFixed(1)+' Mbps';if(b>=1e3)return(b/1e3).toFixed(1)+' kbps';return Math.round(b)+' bps';}
+  setInterval(function(){
+    upSec+=5;
+    var load=(rnd(0.2,0.8)).toFixed(2), ram=Math.floor(rnd(28,35));
+    var rx=rnd(100000,2000000), tx=rnd(50000,300000);
+    var cpu=document.querySelector('[data-indicator="cpu"]');
+    var mem=document.querySelector('[data-indicator="ram"]');
+    var net=document.querySelector('[data-indicator="net"]');
+    var up=document.querySelector('[data-indicator="uptime"]');
+    if(cpu){cpu.querySelector('.indicator-value').textContent=load;cpu.title='Load average: '+load+' / '+(rnd(0.2,0.6)).toFixed(2)+' / '+(rnd(0.2,0.5)).toFixed(2)+' (1 / 5 / 15 min)';cpu.dataset.level=load<1.5?'ok':load<3?'warn':'crit';}
+    if(mem){mem.querySelector('.indicator-value').textContent=ram+'%';mem.title='RAM: '+Math.floor(ram*5.12)+' MB / 512 MB ('+ram+'% used)';mem.dataset.level=ram<60?'ok':ram<85?'warn':'crit';}
+    if(net){net.querySelector('.indicator-value').textContent='\u2193'+fmtSpd(rx)+' \u2191'+fmtSpd(tx);net.title='wan: \u2193 '+fmtSpdF(rx)+' / \u2191 '+fmtSpdF(tx)+' (Link: 1 Gbps)';}
+    if(up){up.querySelector('.indicator-value').textContent=fmt(upSec);up.title='Uptime: '+fmtFull(upSec);}
+  },5000);
+})();
+</script>
+</body>
+</html>

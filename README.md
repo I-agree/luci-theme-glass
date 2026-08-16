@@ -2,12 +2,12 @@
 
 A glassmorphism theme for OpenWrt LuCI, inspired by Apple's visionOS and macOS. Frosted-glass panels, backdrop blur, translucent buttons, and inset highlights across the entire UI.
 
-**[Live Demo](https://rchen14b.github.io/luci-theme-glass/)** | **[Download](https://github.com/rchen14b/luci-theme-glass/releases/latest)**
+**[Live Demo](https://I-agree.github.io/luci-theme-glass/)** | **[Download](https://github.com/I-agree/luci-theme-glass/releases/latest)**
 
 ![License](https://img.shields.io/badge/license-GPL--3.0%20%2F%20Commercial-blue.svg)
 ![OpenWrt](https://img.shields.io/badge/OpenWrt-23.05%2B-brightgreen.svg)
 ![Version](https://img.shields.io/badge/version-1.1.6-orange.svg)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/rchen14b)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat&logo=buy-me-a-coffee)](https://buymeacoffee.com/I-agree)
 
 ## Screenshots
 
@@ -64,10 +64,10 @@ Add the repository to get updates via the package manager. Both opkg and apk fee
 ```sh
 # First install: fetch signing public key (one-time)
 wget -O /etc/opkg/keys/ef97c468af77cea1 \
-  https://raw.githubusercontent.com/rchen14b/luci-theme-glass/main/root/etc/opkg/keys/ef97c468af77cea1
+  https://raw.githubusercontent.com/I-agree/luci-theme-glass/main/root/etc/opkg/keys/ef97c468af77cea1
 
 # Add feed and install
-echo "src/gz glass https://rchen14b.github.io/luci-theme-glass/packages" >> /etc/opkg/customfeeds.conf
+echo "src/gz glass https://I-agree.github.io/luci-theme-glass/packages" >> /etc/opkg/customfeeds.conf
 opkg update
 opkg install luci-theme-glass
 ```
@@ -76,10 +76,10 @@ opkg install luci-theme-glass
 ```sh
 # First install: fetch signing public key (one-time)
 wget -O /etc/apk/keys/glass-apk.rsa.pub \
-  https://raw.githubusercontent.com/rchen14b/luci-theme-glass/main/root/etc/apk/keys/glass-apk.rsa.pub
+  https://raw.githubusercontent.com/I-agree/luci-theme-glass/main/root/etc/apk/keys/glass-apk.rsa.pub
 
 # Add feed and install
-echo "https://rchen14b.github.io/luci-theme-glass/apk/packages.adb" >> /etc/apk/repositories.d/customfeeds.list
+echo "https://I-agree.github.io/luci-theme-glass/apk/packages.adb" >> /etc/apk/repositories.d/customfeeds.list
 apk update
 apk add luci-theme-glass
 ```
@@ -98,7 +98,7 @@ Download the latest package from [Releases](../../releases):
 ```sh
 # Add to your OpenWrt build tree
 cd /path/to/openwrt
-git clone https://github.com/rchen14b/luci-theme-glass.git package/luci-theme-glass
+git clone https://github.com/I-agree/luci-theme-glass.git package/luci-theme-glass
 
 # Build
 make package/luci-theme-glass/compile V=s

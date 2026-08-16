@@ -1934,3 +1934,8 @@ progress::-moz-progress-bar {
   flex: 1 1 calc(50% - 0.25em);
   min-width: 280px;
 }
+
+/* ---- Dropdown overflow fix ---- */
+.cbi-section:has(.cbi-dropdown[open]) {
+  overflow: visible !important;
+}

@@ -810,16 +810,19 @@ body.has-sub-nav #content-wrap {
   margin-top: -2px;
 }
 
-/* ---- CBI Map description (hide, moved to header tooltip by JS) ---- */
-.cbi-map-descr,
+/* Page title & description — visual only */
 .cbi-map > h2,
 #view > h2,
 #maincontent > h2 {
-  display: none;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
 }
-.cbi-map-descr[data-moved],
-#view > h2 + [data-moved] {
-  display: none;
+.cbi-map-descr {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-xl);
 }
 
 /* ---- CBI Value rows — visual only, NO display override ---- */
@@ -969,12 +972,13 @@ select {
   line-height: 1.3;
 }
 .cbi-dynlist > .item {
-  display: inline-flex;
+  display: flex;
   flex-wrap: nowrap;
   position: relative;
   pointer-events: none;
   color: var(--color-text-secondary);
   outline: 0;
+  margin-bottom: 4px;
 }
 .cbi-dynlist > .item::after {
   content: "\00D7";
@@ -1023,7 +1027,7 @@ select {
   box-shadow: none;
 }
 .cbi-dynlist > .add-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   flex-wrap: nowrap;
 }
@@ -1067,6 +1071,7 @@ select {
 
 /* ---- Page actions bar — visual only ---- */
 .cbi-page-actions {
+  text-align: right; 
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-xl);
   margin-top: var(--space-xl);

@@ -4,9 +4,9 @@ set -e
 PKG_NAME="luci-theme-glass"
 PKG_VERSION="$(tr -d '[:space:]' < "$(dirname "$0")/ucode/template/themes/glass/version")"
 PKG_RELEASE="1"
-MAINTAINER="Ryan Chen <rchen14b@gmail.com>"
+MAINTAINER="github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 DESCRIPTION="Glass - Apple-inspired glassmorphism theme for LuCI"
-HOMEPAGE="https://github.com/rchen14b/luci-theme-glass"
+HOMEPAGE="https://github.com/I-agree/luci-theme-glass"
 LICENSE="GPL-3.0"
 
 DIST_DIR="dist"

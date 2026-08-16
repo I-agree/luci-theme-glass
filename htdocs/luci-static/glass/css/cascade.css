@@ -1897,3 +1897,29 @@ progress::-moz-progress-bar {
 /* (Injected by header.ut as <style id="dark-styles"> — keep your existing
    dark mode block as-is, it's already visual-only. Just make sure to remove
    any width/display/flex rules from it too.) */
+
+/* ---- Fix table column width distribution ---- */
+.table tbody tr td.td,
+table.table tr td.td {
+  white-space: nowrap;
+}
+
+/* Actions column: don't let buttons steal all the space */
+.td.cbi-section-actions {
+  white-space: nowrap;
+  width: 1%;  /* Shrink-to-fit: only take as much as needed */
+}
+
+/* Ensure button group stays compact */
+.td.cbi-section-actions > div {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.td.cbi-section-actions .btn {
+  padding: 2px 8px;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}

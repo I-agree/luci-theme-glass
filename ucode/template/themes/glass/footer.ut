@@ -15,7 +15,7 @@
 </main>
 
 <footer class="glass-footer">
-  <span>GlassTheme v{{ glass_version }}</span>
+  <span>數星星的星星定制版</span>
   <span class="footer-sep">|</span>
   <a href="https://github.com/openwrt/luci" target="_blank">{{ version.luciname }} ({{ version.luciversion }})</a>
   <span class="footer-sep">|</span>

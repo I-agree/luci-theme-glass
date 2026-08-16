@@ -888,6 +888,7 @@ textarea:disabled {
   cursor: not-allowed;
 }
 textarea {
+  width: 100%;
   min-height: 80px;
   resize: vertical;
 }

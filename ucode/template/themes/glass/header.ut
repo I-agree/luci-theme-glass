@@ -172,7 +172,7 @@
   <div id="status-indicators"></div>
 
   <div class="header-actions" id="indicators">
-    <button class="theme-toggle" id="theme-toggle" type="button" title="Theme: Auto" aria-label="Theme: Auto">
+    <button class="theme-toggle" id="theme-toggle" type="button" title="{{ _('Theme') }}: {{ _('Auto') }}" aria-label="{{ _('Theme') }}: {{ _('Auto') }}">
       <svg class="theme-icon theme-icon-auto" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="9" r="7.25"/>
         <path d="M9 1.75A7.25 7.25 0 019 16.25" fill="currentColor" stroke="none"/>

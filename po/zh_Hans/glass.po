@@ -275,3 +275,7 @@ msgstr "分钟"
 #: htdocs/luci-static/resources/status-glass.js
 msgid "mins"
 msgstr "分钟"
+
+#: ucode/template/themes/glass/header.ut:178
+msgid "Theme"
+msgstr "主题"

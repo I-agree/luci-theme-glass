@@ -742,6 +742,7 @@ body.has-sub-nav #content-wrap {
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   margin-bottom: var(--space-lg);
+  overflow-x: auto;
 }
 .cbi-section .cbi-section {
   padding: 0;
@@ -1107,7 +1108,8 @@ select {
 /* ---- Tables — visual + proper column distribution ---- */
 .table,
 table.cbi-section-table {
-  width: 100%;
+  min-width: 100%;
+  width: max-content;
   border-collapse: collapse;
   table-layout: auto;
 }

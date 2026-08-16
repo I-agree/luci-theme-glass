@@ -97,8 +97,8 @@ jobs:
           cp -r dist /tmp/dist-save
 
           # Configure git
-          git config user.name "Ryan Chen"
-          git config user.email "I-agree@gmail.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Checkout gh-pages
           git fetch origin gh-pages

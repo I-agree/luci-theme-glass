@@ -337,3 +337,51 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
 ::selection {
   background: rgba(var(--color-primary-rgb), 0.35);
 }
+
+/* ==========================================================================
+   Table Input & Checkbox Sizing Fix — Dark Mode
+   Match cascade.css table fixes with dark-appropriate backgrounds.
+   ========================================================================== */
+
+/* Table inputs in dark — darker background, no max-width cap */
+.table .td input[type="text"],
+.table .td input[type="password"],
+.table .td input[type="number"],
+.table .td .cbi-input-text,
+.table .td .cbi-input-password,
+table.cbi-section-table .td input[type="text"],
+table.cbi-section-table .td input[type="password"],
+table.cbi-section-table .td input[type="number"],
+table.cbi-section-table .td .cbi-input-text,
+table.cbi-section-table .td .cbi-input-password,
+.table .tr .td input[type="text"],
+.table .tr .td input[type="password"],
+.table .tr .td input[type="number"],
+.table .tr .td .cbi-input-text,
+.table .tr .td .cbi-input-password {
+  background: rgba(44, 44, 46, 0.55);
+  border-color: var(--color-border-strong);
+}
+
+/* Select in tables — dark background */
+.table .td select,
+.table .tr .td select,
+table.cbi-section-table .td select {
+  background: rgba(44, 44, 46, 0.55);
+  border-color: var(--color-border-strong);
+}
+
+/* Dynamic list items in tables — dark sizing */
+.table .td .cbi-dynlist > .item > span,
+.table .td .cbi-dynlist > .add-item input,
+.table .tr .td .cbi-dynlist > .item > span,
+.table .tr .td .cbi-dynlist > .add-item input {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border);
+}
+
+/* Checkbox & radio in dark — ensure accent color uses dark primary */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-primary);
+}

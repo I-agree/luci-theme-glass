@@ -825,8 +825,11 @@ body.has-sub-nav #content-wrap {
   margin-bottom: var(--space-xl);
 }
 
-/* ---- CBI Value rows — visual only, NO display override ---- */
+/* ---- CBI Value rows — visual + native grid layout ---- */
 .cbi-value {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
   padding: var(--space-sm) 0;
   border-bottom: 0.5px solid var(--color-separator);
 }
@@ -837,7 +840,11 @@ body.has-sub-nav #content-wrap {
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
 }
+.cbi-value-field {
+  /* LuCI renders controls here — no visual override needed */
+}
 .cbi-value-description {
+  grid-column: 1 / -1;
   color: var(--color-text-tertiary);
   font-size: var(--font-size-sm);
   margin-top: var(--space-xs);

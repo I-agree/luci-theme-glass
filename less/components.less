@@ -176,31 +176,78 @@
 }
 
 /* ---- Inputs ---- */
+/*
+   【终极修复】解决毛玻璃主题下 Input/Select 不可见、文字消失的问题。
+   策略：实色背景 + 强制深色文字 + 禁用 backdrop-filter + !important 全覆盖
+*/
 .cbi-input-text,
 .cbi-input-password,
 input[type="text"],
 input[type="password"],
 input[type="number"],
-textarea {
+input[type="url"],
+input[type="email"],
+textarea,
+select {
   width: 100%;
   max-width: 400px;
   padding: var(--space-sm) var(--space-md);
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid var(--color-border-strong);
+
+  /* ① 实色背景，杜绝 rgba 与 backdrop-filter 的渲染冲突 */
+  background-color: #ffffff !important;
+
+  /* ② 强制深色文字，不依赖 CSS 变量继承 */
+  color: #1d1d1f !important;
+
+  /* ③ 清晰边框，确保输入框边界可见 */
+  border: 1px solid #c7c7cc !important;
   border-radius: var(--radius-md);
+
   font-size: var(--font-size-base);
-  color: var(--color-text);
+  line-height: var(--line-height);
+
+  /* ④ 禁用 backdrop-filter，这是导致渲染 Bug 的根本原因 */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  /* 轻微阴影让输入框从毛玻璃面板中"浮"起 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: #8e8e93 !important;
+    opacity: 1 !important;
+  }
 
   &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15);
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.3) !important;
+    background-color: #ffffff !important;
+  }
+
+  &:hover:not(:focus):not(:disabled) {
+    border-color: #8e8e93 !important;
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.6 !important;
     cursor: not-allowed;
+    background-color: #f2f2f7 !important;
+    color: #8e8e93 !important;
+  }
+
+  /* ⑤ 修复 Chrome/Edge 自动填充导致的背景变色+文字不可见 */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+    -webkit-text-fill-color: #1d1d1f !important;
+    caret-color: #1d1d1f;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
 
@@ -211,19 +258,53 @@ textarea {
 }
 
 select {
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  outline: none;
+  max-width: 400px;
   cursor: pointer;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
 
-  &:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15);
-  }
+  /* 自定义下拉箭头 (深灰色 SVG) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231d1d1f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.7rem center !important;
+  background-size: 1em !important;
+  padding-right: 2.5rem !important;
+}
+
+/* ⑥ 【关键】LuCI 表格内输入框的最高优先级覆盖 */
+/* Samba/DHCP/防火墙等页面全部使用 cbi-section-table，必须单独强化 */
+.table input[type="text"],
+.table .cbi-input-text,
+table.cbi-section-table input[type="text"],
+table.cbi-section-table .cbi-input-text,
+table.cbi-section-table select,
+.cbi-value-field input[type="text"],
+.cbi-value-field .cbi-input-text,
+.cbi-value-field select,
+.cbi-rowstyle-1 input,
+.cbi-rowstyle-1 select,
+.cbi-rowstyle-2 input,
+.cbi-rowstyle-2 select,
+.td input[type="text"],
+.td select {
+  background-color: #ffffff !important;
+  color: #1d1d1f !important;
+  border: 1px solid #c7c7cc !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ⑦ 修复表格内 label/描述文字不可见 */
+.cbi-value-field label,
+.td label,
+.cbi-value-description {
+  color: #1d1d1f !important;
+}
+
+.cbi-value-description {
+  color: #8e8e93 !important;
 }
 
 /* ---- Buttons — glass-ui pattern ---- */

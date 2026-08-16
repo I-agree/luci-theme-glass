@@ -21,6 +21,7 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+
   /* ---- Colors — Light mode ---- */
   --color-primary: #007AFF;
   --color-primary-hover: #0066d6;
@@ -40,6 +41,7 @@
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-strong: rgba(0, 0, 0, 0.16);
   --color-separator: rgba(60, 60, 67, 0.12);
+
   /* ---- Glassmorphism ---- */
   --glass-blur: 20px;
   --glass-saturate: 180%;
@@ -49,18 +51,47 @@
   --glass-border: rgba(255, 255, 255, 0.45);
   --glass-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.08);
   --glass-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.06);
+
+  /* ---- Reusable glass patterns (eliminates ~120 lines of duplication) ---- */
+  --glass-gradient: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%,
+    rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%,
+    rgba(230, 240, 255, 0.12) 100%);
+  --glass-gradient-strong: linear-gradient(160deg,
+    rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.18) 20%,
+    rgba(245, 250, 255, 0.2) 45%, rgba(255, 255, 255, 0.16) 70%,
+    rgba(240, 245, 255, 0.19) 100%);
+  --glass-pill-border: 0.5px solid rgba(255, 255, 255, 0.18);
+  --glass-pill-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03),
+    0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 1px 6px rgba(255, 255, 255, 0.1) inset;
+  --glass-bar-border: 0.5px solid rgba(255, 255, 255, 0.35);
+  --glass-bar-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.12);
+  --glass-active-bg: rgba(255, 255, 255, 0.45);
+  --glass-active-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.15);
+  --glass-panel-border: 0.5px solid rgba(255, 255, 255, 0.12);
+  --glass-panel-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.08), inset 0 0 12px rgba(255, 255, 255, 0.1);
+  --glass-inset-border: 0.5px solid rgba(255, 255, 255, 0.12);
+  --glass-inset-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
+
   /* ---- Layout (theme chrome only) ---- */
   --sidebar-width: 260px;
   --sidebar-collapsed-width: 64px;
   --sidebar-gap: 10px;
-  --header-height: 56px;
+  --header-height: 44px;
+  --sub-nav-height: 36px;
   --content-padding: 24px;
+
   /* ---- Radius ---- */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
   --radius-full: 9999px;
+
   /* ---- Spacing ---- */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -69,10 +100,12 @@
   --space-xl: 24px;
   --space-2xl: 32px;
   --space-3xl: 48px;
+
   /* ---- Transitions ---- */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
   --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
   /* ---- Z-index ---- */
   --z-dropdown: 100;
   --z-sticky: 200;
@@ -81,6 +114,7 @@
   --z-overlay: 500;
   --z-modal: 600;
   --z-toast: 700;
+
   /* ---- Background ---- */
   --bg-gradient: linear-gradient(135deg, #b8c4d0 0%, #d5dce5 50%, #ddd5cc 100%);
 }
@@ -181,12 +215,13 @@ pre {
   width: var(--sidebar-width);
   height: calc(100vh - var(--sidebar-gap) * 2);
   z-index: var(--z-sidebar);
-  background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.18) 20%, rgba(245, 250, 255, 0.2) 45%, rgba(255, 255, 255, 0.16) 70%, rgba(240, 245, 255, 0.19) 100%);
+  background-image: var(--glass-gradient-strong);
   background-color: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   border: 0.5px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
@@ -265,12 +300,12 @@ pre {
   color: var(--color-text);
 }
 .nav-item.active {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--glass-active-bg);
   color: var(--color-text);
   font-weight: var(--font-weight-medium);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.15);
+  box-shadow: var(--glass-active-shadow);
 }
 .nav-item .nav-icon {
   width: 20px;
@@ -348,7 +383,8 @@ pre {
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   border: 0.5px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 0 4px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35), inset 0 0 4px rgba(255, 255, 255, 0.1);
   transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
   z-index: 0;
   pointer-events: none;
@@ -364,7 +400,7 @@ pre {
   top: var(--sidebar-gap);
   left: calc(var(--sidebar-width) + var(--sidebar-gap) * 2);
   right: var(--sidebar-gap);
-  height: 44px;
+  height: var(--header-height);
   z-index: var(--z-header);
   border-radius: var(--radius-lg);
   display: flex;
@@ -372,12 +408,12 @@ pre {
   padding: 4px 4px 4px 6px;
   gap: var(--space-xs);
   transition: left var(--transition-slow);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.12);
+  border: var(--glass-bar-border);
+  box-shadow: var(--glass-bar-shadow);
 }
 #header-nav,
 #header-tabs {
@@ -421,10 +457,10 @@ pre {
   width: 0;
   opacity: 0;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--glass-active-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.15);
+  box-shadow: var(--glass-active-shadow);
   transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
   z-index: 0;
   pointer-events: none;
@@ -433,6 +469,19 @@ pre {
 .sub-tab {
   position: relative;
   z-index: 1;
+}
+
+/* ---- Shared pill style (header-title, status-indicators, header-actions, theme-toggle-float) ---- */
+.header-title,
+#status-indicators,
+.header-actions,
+.theme-toggle-float {
+  background-image: var(--glass-gradient);
+  background-color: transparent;
+  border: var(--glass-pill-border);
+  box-shadow: var(--glass-pill-shadow);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 
 /* ---- Status indicators ---- */
@@ -444,12 +493,6 @@ pre {
   display: flex;
   align-items: center;
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(240, 248, 255, 0.12) 50%, rgba(255, 255, 255, 0.08) 75%, rgba(230, 240, 255, 0.1) 100%);
-  background-color: transparent;
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 1px 6px rgba(255, 255, 255, 0.1) inset;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 #status-indicators:empty {
   display: none;
@@ -497,12 +540,6 @@ pre {
   display: flex;
   align-items: center;
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(240, 248, 255, 0.12) 50%, rgba(255, 255, 255, 0.08) 75%, rgba(230, 240, 255, 0.1) 100%);
-  background-color: transparent;
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 1px 6px rgba(255, 255, 255, 0.1) inset;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 .header-actions {
   margin-left: auto;
@@ -513,12 +550,6 @@ pre {
   display: flex;
   align-items: center;
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(240, 248, 255, 0.12) 50%, rgba(255, 255, 255, 0.08) 75%, rgba(230, 240, 255, 0.1) 100%);
-  background-color: transparent;
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 1px 6px rgba(255, 255, 255, 0.1) inset;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 .header-actions:empty { display: none; }
 .header-actions [data-indicator] {
@@ -570,12 +601,6 @@ html[data-theme="dark"] .theme-icon-dark { display: block; }
   display: flex;
   align-items: center;
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(240, 248, 255, 0.12) 50%, rgba(255, 255, 255, 0.08) 75%, rgba(230, 240, 255, 0.1) 100%);
-  background-color: transparent;
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 1px 6px rgba(255, 255, 255, 0.1) inset;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 .theme-toggle-float .theme-icon { width: 18px; height: 18px; }
 
@@ -594,11 +619,11 @@ html[data-theme="dark"] .theme-icon-dark { display: block; }
 /* ---- Sub-navigation bar ---- */
 #header-sub {
   position: fixed;
-  top: calc(var(--sidebar-gap) + 44px + 4px);
+  top: calc(var(--sidebar-gap) + var(--header-height) + 4px);
   left: calc(var(--sidebar-width) + var(--sidebar-gap) * 2);
   width: fit-content;
   max-width: calc(100vw - var(--sidebar-width) - var(--sidebar-gap) * 3);
-  height: 2.25rem;
+  height: var(--sub-nav-height);
   z-index: var(--z-header);
   border-radius: var(--radius-md);
   display: none;
@@ -607,12 +632,12 @@ html[data-theme="dark"] .theme-icon-dark { display: block; }
   gap: 2px;
   overflow-x: auto;
   transition: left var(--transition-slow);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04), 0 0 0 0.5px rgba(255, 255, 255, 0.08) inset, 0 0 12px rgba(255, 255, 255, 0.1) inset;
+  border: var(--glass-panel-border);
+  box-shadow: var(--glass-panel-shadow);
   scrollbar-width: none;
 }
 #header-sub::-webkit-scrollbar { display: none; }
@@ -655,8 +680,8 @@ html[data-theme="dark"] .theme-icon-dark { display: block; }
 /* ---- Main content area (theme chrome positioning only) ---- */
 #content-wrap {
   margin-left: calc(var(--sidebar-width) + var(--sidebar-gap) * 2);
-  margin-top: calc(44px + var(--sidebar-gap) * 2);
-  min-height: calc(100vh - 44px - var(--sidebar-gap) * 2);
+  margin-top: calc(var(--header-height) + var(--sidebar-gap) * 2);
+  min-height: calc(100vh - var(--header-height) - var(--sidebar-gap) * 2);
   padding: var(--content-padding);
   transition: margin-left var(--transition-slow);
   animation: page-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -684,7 +709,7 @@ body.page-leaving #content-wrap {
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 body.has-sub-nav #content-wrap {
-  margin-top: calc(44px + 36px + var(--sidebar-gap) * 2 + 4px);
+  margin-top: calc(var(--header-height) + var(--sub-nav-height) + var(--sidebar-gap) * 2 + 4px);
 }
 #content {
   margin: 0 auto;
@@ -742,8 +767,15 @@ body.has-sub-nav #content-wrap {
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   margin-bottom: var(--space-lg);
+  overflow: visible; /* Default: don't clip — prevents dropdown truncation */
+}
+
+/* Only enable horizontal scroll when section contains wide tables */
+.cbi-section:has(table),
+.cbi-section:has(.table) {
   overflow-x: auto;
 }
+
 .cbi-section .cbi-section {
   padding: 0;
   margin-bottom: 0;
@@ -753,6 +785,7 @@ body.has-sub-nav #content-wrap {
   border: none;
   box-shadow: none;
   border-radius: 0;
+  overflow: visible;
 }
 .cbi-section-descr {
   color: var(--color-text-secondary);
@@ -827,8 +860,6 @@ body.has-sub-nav #content-wrap {
 }
 
 /* ---- CBI Value rows — visual + native grid layout ---- */
-/* Apply grid ONLY to .cbi-value that has both a title and a field child,
-   i.e. real form rows. Use :has() for precise targeting. */
 .cbi-value:has(> .cbi-value-title):has(> .cbi-value-field) {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -921,10 +952,11 @@ select {
   font-weight: var(--font-weight-medium);
   font-family: inherit;
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: rgba(255, 255, 255, 0.55);
   border: 0.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 6px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   color: var(--color-text);
@@ -937,7 +969,8 @@ select {
 .btn:hover,
 .cbi-button:hover {
   opacity: 0.9;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.12);
 }
 .btn:active,
 .cbi-button:active {
@@ -958,13 +991,19 @@ select {
 .cbi-button[value="Submit"],
 .cbi-button[value="Upload"],
 .cbi-button[value$="Apply"] {
-  background-image: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, rgba(0, 122, 255, 0.07) 25%, rgba(10, 132, 255, 0.09) 50%, rgba(0, 122, 255, 0.06) 75%, rgba(0, 100, 220, 0.08) 100%);
+  background-image: linear-gradient(135deg,
+    rgba(0, 122, 255, 0.1) 0%, rgba(0, 122, 255, 0.07) 25%,
+    rgba(10, 132, 255, 0.09) 50%, rgba(0, 122, 255, 0.06) 75%,
+    rgba(0, 100, 220, 0.08) 100%);
   background-color: rgba(255, 255, 255, 0.45);
   color: var(--color-primary);
   border: 0.5px solid rgba(0, 122, 255, 0.18);
 }
 .cbi-button-save {
-  background-image: linear-gradient(135deg, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.07) 25%, rgba(48, 209, 88, 0.09) 50%, rgba(52, 199, 89, 0.06) 75%, rgba(40, 180, 75, 0.08) 100%);
+  background-image: linear-gradient(135deg,
+    rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.07) 25%,
+    rgba(48, 209, 88, 0.09) 50%, rgba(52, 199, 89, 0.06) 75%,
+    rgba(40, 180, 75, 0.08) 100%);
   background-color: rgba(255, 255, 255, 0.45);
   color: #248a3d;
   border: 0.5px solid rgba(52, 199, 89, 0.2);
@@ -972,7 +1011,9 @@ select {
 .cbi-button-negative,
 .cbi-button-remove,
 .cbi-button-reset {
-  background-image: linear-gradient(135deg, rgba(255, 59, 48, 0.1) 0%, rgba(255, 59, 48, 0.07) 50%, rgba(255, 59, 48, 0.09) 100%);
+  background-image: linear-gradient(135deg,
+    rgba(255, 59, 48, 0.1) 0%, rgba(255, 59, 48, 0.07) 50%,
+    rgba(255, 59, 48, 0.09) 100%);
   background-color: rgba(255, 255, 255, 0.45);
   color: var(--color-danger);
   border: 0.5px solid rgba(255, 59, 48, 0.18);
@@ -1097,12 +1138,12 @@ select {
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-xl);
   margin-top: var(--space-xl);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.12);
+  border: var(--glass-bar-border);
+  box-shadow: var(--glass-bar-shadow);
 }
 
 /* ---- Tables — visual + proper column distribution ---- */
@@ -1114,7 +1155,7 @@ table.cbi-section-table {
   table-layout: auto;
 }
 
-/* Table header cells — compact padding, no-wrap to prevent vertical text */
+/* Table header cells */
 .table thead tr th,
 table.cbi-section-table thead tr th,
 .table .tr.table-titles .th,
@@ -1130,7 +1171,7 @@ table.cbi-section-table thead tr .th {
   white-space: nowrap;
 }
 
-/* Table body cells — compact padding */
+/* Table body cells */
 .table tbody tr td,
 table.cbi-section-table tbody tr td,
 .table .tr .td,
@@ -1244,7 +1285,8 @@ table.table td.td {
   backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   border: 0.5px solid var(--glass-border);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 .cbi-dropdown[open] > ul.dropdown > li {
   display: flex;
@@ -1292,12 +1334,12 @@ table.table td.td {
   margin: 0 0 var(--space-xl);
   padding: var(--space-xs);
   border-radius: var(--radius-md);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04), inset 0 0 0.5px rgba(255, 255, 255, 0.08), inset 0 0 12px rgba(255, 255, 255, 0.1);
+  border: var(--glass-panel-border);
+  box-shadow: var(--glass-panel-shadow);
 }
 .cbi-tabmenu li a {
   display: block;
@@ -1314,11 +1356,11 @@ table.table td.td {
   background: rgba(0, 0, 0, 0.04);
 }
 .cbi-tabmenu li.cbi-tab a {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--glass-active-bg);
   color: var(--color-text);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.15);
+  box-shadow: var(--glass-active-shadow);
 }
 /* Tab panels — hide inactive (LuCI dependency system compatible) */
 [data-tab][data-tab-title]:not([data-tab-active="true"]) {
@@ -1338,7 +1380,8 @@ table.table td.td {
   border-left: 3px solid var(--color-info);
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
 }
 .alert-message > h4,
 .cbi-section-error > h4 { color: var(--color-info); margin-bottom: var(--space-xs); }
@@ -1383,7 +1426,10 @@ table.table td.td {
   height: 100%;
   border-radius: var(--radius-full);
   transition: width var(--transition-normal);
-  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.75) 0%, rgba(var(--color-primary-rgb), 0.6) 50%, rgba(var(--color-primary-rgb), 0.7) 100%);
+  background: linear-gradient(135deg,
+    rgba(var(--color-primary-rgb), 0.75) 0%,
+    rgba(var(--color-primary-rgb), 0.6) 50%,
+    rgba(var(--color-primary-rgb), 0.7) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.1);
 }
 .cbi-progressbar::after {
@@ -1407,12 +1453,16 @@ input[type="radio"] {
   vertical-align: middle;
 }
 
-/* ---- Spinning indicator — visual only ---- */
-.spinning {
+/* ---- Spinning indicator — scoped to content areas only ---- */
+.cbi-section .spinning,
+.cbi-value .spinning,
+.cbi-map .spinning {
   position: relative;
   padding-left: 32px !important;
 }
-.spinning::before {
+.cbi-section .spinning::before,
+.cbi-value .spinning::before,
+.cbi-map .spinning::before {
   position: absolute;
   top: 0; bottom: 0; left: 0.2em;
   width: 32px;
@@ -1467,6 +1517,7 @@ input[type="radio"] {
   border: none;
   box-shadow: none;
   border-radius: 0;
+  overflow: visible;
 }
 #modal_overlay > .modal:has(.cbi-dropdown[open]) { overflow: visible; }
 #modal_overlay > .modal.cbi-modal,
@@ -1487,6 +1538,7 @@ body.modal-overlay-active #modal_overlay {
   border: none;
   box-shadow: none;
   border-radius: 0;
+  overflow: visible;
 }
 .uci-change-legend {
   padding: 10px 0;
@@ -1590,12 +1642,13 @@ body.modal-overlay-active #modal_overlay {
   padding: var(--space-xl);
 }
 .login-card {
-  background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(245, 250, 255, 0.22) 50%, rgba(255, 255, 255, 0.18) 75%, rgba(240, 248, 255, 0.21) 100%);
+  background-image: var(--glass-gradient-strong);
   background-color: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(30px) saturate(var(--glass-saturate));
   border: 0.5px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 0 16px rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-xl);
   padding: var(--space-3xl) var(--space-2xl);
   width: 100%;
@@ -1649,18 +1702,19 @@ body.modal-overlay-active #modal_overlay {
 .login-form .login-field input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .login-form .login-field input::placeholder { color: var(--color-text-tertiary); }
 .login-btn {
   width: 100%;
   padding: var(--space-md) var(--space-lg);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(180%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04), inset 0 0 0.5px rgba(255, 255, 255, 0.08), inset 0 0 12px rgba(255, 255, 255, 0.1);
+  border: var(--glass-panel-border);
+  box-shadow: var(--glass-panel-shadow);
   color: var(--color-text);
   border-radius: var(--radius-md);
   font-size: var(--font-size-base);
@@ -1723,7 +1777,7 @@ body.modal-overlay-active #modal_overlay {
    ========================================================================== */
 #maincontent { padding: 0; }
 
-/* Interface boxes — visual only */
+/* ---- Interface boxes — visual only ---- */
 .ifacebox {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -1754,7 +1808,18 @@ body.modal-overlay-active #modal_overlay {
   font-weight: var(--font-weight-medium);
 }
 
-/* Interface badges — visual only */
+/* ---- Network status table — flex layout for ifacebox side-by-side ---- */
+.network-status-table {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.network-status-table > .ifacebox {
+  flex: 1 1 calc(50% - 0.25em);
+  min-width: 280px;
+}
+
+/* ---- Interface badges — visual only ---- */
 .ifacebadge {
   display: inline-flex;
   align-items: center;
@@ -1771,7 +1836,7 @@ body.modal-overlay-active #modal_overlay {
 }
 .ifacebadge img { width: 16px; height: 16px; }
 
-/* Zone badges — visual only */
+/* ---- Zone badges — visual only ---- */
 .zonebadge {
   display: inline-block;
   padding: 2px var(--space-sm);
@@ -1784,7 +1849,7 @@ body.modal-overlay-active #modal_overlay {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.06);
 }
 
-/* Tooltips — visual + positioning */
+/* ---- Tooltips — visual + positioning ---- */
 .cbi-tooltip-container { position: relative; }
 .cbi-tooltip {
   display: none;
@@ -1808,7 +1873,7 @@ body.modal-overlay-active #modal_overlay {
 .cbi-tooltip.left { left: auto; right: 0; }
 .cbi-tooltip-container:hover > .cbi-tooltip { display: block; }
 
-/* System log / pre — visual + full width */
+/* ---- System log / pre — visual + full width ---- */
 #syslog {
   width: 100%;
   font-family: var(--font-mono);
@@ -1836,33 +1901,33 @@ pre {
   padding: var(--space-sm) 0;
 }
 
-/* Diagnostics output — visual + full width */
+/* ---- Diagnostics output — visual + full width ---- */
 #diag-rc-output {
   width: 100%;
   border-radius: var(--radius-md);
   padding: var(--space-lg);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
+  border: var(--glass-inset-border);
+  box-shadow: var(--glass-inset-shadow);
 }
 
-/* File browser — visual + full width */
+/* ---- File browser — visual + full width ---- */
 .cbi-filebrowser {
   width: 100%;
   border-radius: var(--radius-md);
   padding: var(--space-lg);
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(240, 248, 255, 0.13) 50%, rgba(255, 255, 255, 0.11) 75%, rgba(230, 240, 255, 0.12) 100%);
+  background-image: var(--glass-gradient);
   background-color: transparent;
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.08);
+  border: var(--glass-inset-border);
+  box-shadow: var(--glass-inset-shadow);
 }
 
-/* Apply config spinner */
+/* ---- Apply config spinner ---- */
 #cbi_apply_overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -1883,7 +1948,7 @@ pre {
 }
 #cbi_apply_overlay .spinning::before { display: none; }
 
-/* Progress element — visual only */
+/* ---- Progress element — visual only ---- */
 progress {
   -webkit-appearance: none;
   appearance: none;
@@ -1899,43 +1964,35 @@ progress::-webkit-progress-bar {
   border-radius: var(--radius-full);
 }
 progress::-webkit-progress-value {
-  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.75) 0%, rgba(var(--color-primary-rgb), 0.6) 50%, rgba(var(--color-primary-rgb), 0.7) 100%);
+  background: linear-gradient(135deg,
+    rgba(var(--color-primary-rgb), 0.75) 0%,
+    rgba(var(--color-primary-rgb), 0.6) 50%,
+    rgba(var(--color-primary-rgb), 0.7) 100%);
   border-radius: var(--radius-full);
 }
 progress::-moz-progress-bar {
-  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.75) 0%, rgba(var(--color-primary-rgb), 0.6) 50%, rgba(var(--color-primary-rgb), 0.7) 100%);
+  background: linear-gradient(135deg,
+    rgba(var(--color-primary-rgb), 0.75) 0%,
+    rgba(var(--color-primary-rgb), 0.6) 50%,
+    rgba(var(--color-primary-rgb), 0.7) 100%);
   border-radius: var(--radius-full);
 }
 
-/* Error page */
+/* ---- Error page ---- */
 #error-message {
   text-align: center;
   padding: var(--space-3xl);
   color: var(--color-text-secondary);
 }
 
-/* Utility */
+/* ---- Utility ---- */
 .nowrap { white-space: nowrap; }
 
 /* ==========================================================================
    Dark Mode — visual overrides only
+   NOTE: The actual dark mode styles are injected by header.ut as
+   <style id="dark-styles">. That block should override --glass-bg to a
+   single consistent value, e.g. rgba(38, 38, 42, 0.30).
+   The inline <style> in the HTML template also sets --glass-bg for
+   [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
-/* (Injected by header.ut as <style id="dark-styles"> — keep your existing
-   dark mode block as-is, it's already visual-only. Just make sure to remove
-   any width/display/flex rules from it too.) */
-
-.network-status-table {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-}
-
-.network-status-table > .ifacebox {
-  flex: 1 1 calc(50% - 0.25em);
-  min-width: 280px;
-}
-
-/* ---- Dropdown overflow fix ---- */
-.cbi-section:has(.cbi-dropdown[open]) {
-  overflow: visible !important;
-}

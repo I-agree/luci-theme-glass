@@ -46,7 +46,7 @@ return view.extend({
 		o.value('14', _('Normal (14px)'));
 		o.value('16', _('Large (16px)'));
 		o.value('18', _('Extra Large (18px)'));
-		o.default = '16';
+		o.default = '14';
 
 		/* ── Colors ── */
 		s = m.section(form.NamedSection, 'global', 'global', _('Accent Colors'));

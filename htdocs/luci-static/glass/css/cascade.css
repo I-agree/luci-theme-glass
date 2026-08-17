@@ -1996,3 +1996,68 @@ progress::-moz-progress-bar {
    The inline <style> in the HTML template also sets --glass-bg for
    [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
+
+/* ============================================
+   cbi-dropdown 完整修复方案
+   ============================================ */
+
+/* --- 预览层 (ul.preview 或无 class 的 ul) --- */
+
+/* 预览层：隐藏 checkbox */
+.cbi-dropdown > ul.preview > li > form,
+.cbi-dropdown > ul:not(.dropdown) > li > form {
+  display: none !important;
+}
+
+/* 预览层：隐藏未选中项 */
+.cbi-dropdown > ul.preview > li:not([selected]),
+.cbi-dropdown > ul:not(.dropdown) > li:not([selected]):not([unselectable]) {
+  display: none !important;
+}
+
+/* 预览层：隐藏 unselectable 占位项 */
+.cbi-dropdown > ul.preview > li[unselectable],
+.cbi-dropdown > ul:not(.dropdown) > li[unselectable] {
+  display: none !important;
+}
+
+/* 预览层：选中项蓝色加粗 */
+.cbi-dropdown > ul.preview > li[selected],
+.cbi-dropdown > ul:not(.dropdown) > li[selected] {
+  color: var(--color-primary, #007aff) !important;
+  font-weight: 600 !important;
+}
+
+/* --- 下拉展开层 (ul.dropdown) --- */
+
+/* 下拉层：确保所有项可见 */
+.cbi-dropdown > ul.dropdown > li {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 下拉层：显示 checkbox */
+.cbi-dropdown > ul.dropdown > li > form {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-right: 6px !important;
+}
+
+.cbi-dropdown > ul.dropdown > li > form > input[type="checkbox"] {
+  display: inline-block !important;
+  width: 16px !important;
+  height: 16px !important;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  accent-color: var(--color-primary, #007aff) !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+}
+
+/* 下拉层：选中项高亮背景 */
+.cbi-dropdown > ul.dropdown > li[selected] {
+  background: rgba(0, 122, 255, 0.12) !important;
+  color: var(--color-primary, #007aff) !important;
+  font-weight: 600 !important;
+}

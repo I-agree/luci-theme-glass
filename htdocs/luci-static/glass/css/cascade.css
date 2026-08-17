@@ -2062,14 +2062,20 @@ progress::-moz-progress-bar {
   font-weight: 600 !important;
 }
 
-/* dropdown 展开层：确保在最上层 */
-.cbi-dropdown > ul.dropdown {
-  z-index: 9999 !important;
-  position: absolute !important;
+/* 方案 B：保留毛玻璃，但提升 dropdown 层级 */
+.cbi-dropdown.cbi-dropdown-open {
+  position: relative !important;
+  z-index: 99999 !important;
+  isolation: isolate !important;
 }
 
-/* 同时确保 cbi-dropdown-open 容器也有高层级 */
-.cbi-dropdown-open {
-  z-index: 9999 !important;
+.cbi-dropdown > ul.dropdown {
+  z-index: 99999 !important;
+}
+
+/* 关键：压低 cbi-page-actions 的合成层 */
+.cbi-page-actions {
+  isolation: auto !important;
+  z-index: 0 !important;
   position: relative !important;
 }

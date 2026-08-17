@@ -911,10 +911,9 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 }
 
 /* ==========================================================================
-   PART 6 — Dropdown 层级修复
+   PART 6 — Dropdown
    ========================================================================== */
 
-/* 包含打开 dropdown 的容器自动提升层级 */
 .cbi-section:has(.cbi-dropdown-open),
 .cbi-map:has(.cbi-dropdown-open) {
   position: relative !important;
@@ -922,7 +921,6 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   isolation: isolate;
 }
 
-/* dropdown 打开时自身层级保障 */
 .cbi-dropdown.cbi-dropdown-open,
 .cbi-dropdown[open] {
   position: relative !important;

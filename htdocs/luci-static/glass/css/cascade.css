@@ -1997,29 +1997,24 @@ progress::-moz-progress-bar {
    [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
 
-/* ===== cbi-dropdown 接口选择 — 对齐官方主题 ===== */
+/* ===== 彻底修复 cbi-dropdown checkbox 显示 ===== */
 
-/* 1. 预览层（未展开）：隐藏 checkbox，只显示选中项文字 */
-.cbi-dropdown > ul.preview > li > form {
+/* 1. 全局隐藏 cbi-dropdown 里 li 内的 form（checkbox 容器） */
+.cbi-dropdown li > form {
   display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
 }
 
-.cbi-dropdown > ul.preview > li:not([selected]):not([unselectable]) {
-  display: none !important;
-}
-
-.cbi-dropdown > ul.preview > li[unselectable] {
-  display: none !important;
-}
-
-.cbi-dropdown > ul.preview > li[selected] {
-  color: var(--color-primary, #007aff) !important;
-  font-weight: 600 !important;
-}
-
-/* 2. 下拉展开层：显示 checkbox，对齐官方样式 */
+/* 2. 但在下拉展开层（有 .dropdown class 的 ul）里恢复显示 */
 .cbi-dropdown > ul.dropdown > li > form {
   display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  position: static !important;
   align-items: center !important;
   margin-right: 6px !important;
 }
@@ -2028,8 +2023,6 @@ progress::-moz-progress-bar {
   display: inline-block !important;
   width: 16px !important;
   height: 16px !important;
-  position: static !important;
-  pointer-events: auto !important;
   appearance: auto !important;
   -webkit-appearance: auto !important;
   accent-color: var(--color-primary, #007aff) !important;
@@ -2038,15 +2031,23 @@ progress::-moz-progress-bar {
   margin: 0 !important;
 }
 
-/* 3. 下拉展开层：选中项蓝色背景 + 勾选 */
-.cbi-dropdown > ul.dropdown > li[selected] {
-  background: rgba(0, 122, 255, 0.12) !important;
+/* 3. 预览层：只显示选中项，蓝色加粗 */
+.cbi-dropdown > ul:not(.dropdown) > li:not([selected]):not([unselectable]) {
+  display: none !important;
+}
+
+.cbi-dropdown > ul:not(.dropdown) > li[unselectable] {
+  display: none !important;
+}
+
+.cbi-dropdown > ul:not(.dropdown) > li[selected] {
   color: var(--color-primary, #007aff) !important;
   font-weight: 600 !important;
 }
 
-/* 4. 下拉展开层：未选中项正常显示 */
-.cbi-dropdown > ul.dropdown > li:not([selected]):not([unselectable]) {
-  display: flex !important;
-  align-items: center !important;
+/* 4. 下拉展开层：选中项高亮 */
+.cbi-dropdown > ul.dropdown > li[selected] {
+  background: rgba(0, 122, 255, 0.12) !important;
+  color: var(--color-primary, #007aff) !important;
+  font-weight: 600 !important;
 }

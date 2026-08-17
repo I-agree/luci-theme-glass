@@ -909,3 +909,26 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   .cbi-tabmenu li a { white-space: nowrap; }
   .login-card { padding: 32px 24px; }
 }
+
+/* ==========================================================================
+   PART 6 — Dropdown 层级修复
+   ========================================================================== */
+
+/* 包含打开 dropdown 的容器自动提升层级 */
+.cbi-section:has(.cbi-dropdown-open),
+.cbi-map:has(.cbi-dropdown-open) {
+  position: relative !important;
+  z-index: 9999 !important;
+  isolation: isolate;
+}
+
+/* dropdown 打开时自身层级保障 */
+.cbi-dropdown.cbi-dropdown-open,
+.cbi-dropdown[open] {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+.cbi-dropdown[open] > ul.dropdown {
+  z-index: 9999 !important;
+}

@@ -2062,15 +2062,14 @@ progress::-moz-progress-bar {
   font-weight: 600 !important;
 }
 
-.cbi-dropdown > ul.dropdown > li {
-  opacity: 1 !important;
-  filter: none !important;
-  color: var(--color-text, #1d1d1f) !important;
-  -webkit-text-fill-color: initial !important;
+/* dropdown 展开层：确保在最上层 */
+.cbi-dropdown > ul.dropdown {
+  z-index: 9999 !important;
+  position: absolute !important;
 }
 
-/* 选中项单独设蓝色 */
-.cbi-dropdown > ul.dropdown > li[selected] {
-  color: var(--color-primary, #007aff) !important;
-  -webkit-text-fill-color: var(--color-primary, #007aff) !important;
+/* 同时确保 cbi-dropdown-open 容器也有高层级 */
+.cbi-dropdown-open {
+  z-index: 9999 !important;
+  position: relative !important;
 }

@@ -22,7 +22,7 @@
   let glass_transparency = '0.72';
   let glass_blur_dark = '25';
   let glass_transparency_dark = '0.30';
-  let glass_font_size = '16';
+  let glass_font_size = '14';
 
   let cfg = cursor();
   if (access('/etc/config/glass')) {

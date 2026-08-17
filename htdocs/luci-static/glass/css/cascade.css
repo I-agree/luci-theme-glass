@@ -1232,8 +1232,7 @@ table.table td.td {
   cursor: pointer;
 }
 
-/* Hide the internal state-tracking checkbox — 
-   cbi-dropdown renders its own visual indicator via <ul><li> */
+/* Unchecked: hide the checkbox completely */
 .cbi-dropdown > input[type="checkbox"] {
   position: absolute;
   width: 0;
@@ -1241,6 +1240,19 @@ table.table td.td {
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
+}
+
+/* Checked: show the blue checkbox */
+.cbi-dropdown > input[type="checkbox"]:checked {
+  position: static;
+  width: auto;
+  height: auto;
+  opacity: 1;
+  overflow: visible;
+  pointer-events: auto;
+  accent-color: var(--color-primary);
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
 .cbi-dropdown > ul {

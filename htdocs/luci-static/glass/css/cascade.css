@@ -1996,3 +1996,43 @@ progress::-moz-progress-bar {
    The inline <style> in the HTML template also sets --glass-bg for
    [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
+
+/* ===== 让 cbi-dropdown 多选模式看起来像官方主题的普通下拉框 ===== */
+
+/* 隐藏选中项前面的勾选标记 */
+.cbi-dropdown > ul > li[selected]::before,
+.cbi-dropdown > ul > li::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* 去掉选中项的特殊背景 */
+.cbi-dropdown > ul > li[selected] {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* 隐藏不可选的占位项 "-" */
+.cbi-dropdown > ul > li[unselectable] {
+  display: none !important;
+}
+
+/* 让已选中的项正常内联显示，不要标签化 */
+.cbi-dropdown > ul {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+.cbi-dropdown > ul > li {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* 未选中的项在非展开状态下隐藏 */
+.cbi-dropdown > ul:not(.dropdown) > li:not([selected]):not([unselectable]) {
+  display: none !important;
+}

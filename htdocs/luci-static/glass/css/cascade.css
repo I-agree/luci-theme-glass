@@ -2061,3 +2061,16 @@ progress::-moz-progress-bar {
   color: var(--color-primary, #007aff) !important;
   font-weight: 600 !important;
 }
+
+.cbi-dropdown > ul.dropdown > li {
+  opacity: 1 !important;
+  filter: none !important;
+  color: var(--color-text, #1d1d1f) !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* 选中项单独设蓝色 */
+.cbi-dropdown > ul.dropdown > li[selected] {
+  color: var(--color-primary, #007aff) !important;
+  -webkit-text-fill-color: var(--color-primary, #007aff) !important;
+}

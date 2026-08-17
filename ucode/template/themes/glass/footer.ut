@@ -79,7 +79,7 @@
     });
   })();
 
-  /* Move CBI tabmenus into sub-nav bar; keep originals visible */
+  /* Move CBI tabmenus into sub-nav bar; hide originals via CSS */
   (function() {
     var headerSub = document.getElementById('header-sub');
     var headerTitle = document.getElementById('header-title');
@@ -96,7 +96,7 @@
       }
 
       /* Clone top-level CBI tabmenus into sub-nav bar.
-         Original tabmenus stay visible in-content. */
+         Originals are hidden via .tabs-moved-to-header class. */
       if (!headerSub) return;
       if (headerSub.querySelector('.sub-tab')) return;
       var allTabmenus = content.querySelectorAll('.cbi-tabmenu');

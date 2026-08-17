@@ -884,13 +884,13 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 
 /* Tablet: sidebar becomes overlay */
 @media (max-width: 1024px) {
-  #sidebar { transform: translateX(calc(-100% - 10px)); }
+  #sidebar { transform: translateX(calc(-100% - 10px)); z-index: 500; }
   #sidebar.open { transform: translateX(0); }
-  #header { left: 0; }
-  #header-sub { left: 0; max-width: calc(100vw - 10px); }
+  #header { left: 10px; }
+  #header-sub { left: 10px; max-width: calc(100vw - 20px); }
   #content-wrap { margin-left: 0; }
   .glass-footer { margin-left: 0; }
-  .menu-toggle { display: block; }
+  .menu-toggle { display: flex !important; }
 }
 
 /* Hide status indicators on small screens */

@@ -1997,42 +1997,56 @@ progress::-moz-progress-bar {
    [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
 
-/* ===== 修复 cbi-dropdown 接口选择的显示问题 ===== */
+/* ===== cbi-dropdown 接口选择 — 对齐官方主题 ===== */
 
-/* 1. 隐藏 li 内部的 checkbox（那个有 bug 的方框） */
-.cbi-dropdown > ul > li > form,
-.cbi-dropdown > ul > li > form > input[type="checkbox"] {
+/* 1. 预览层（未展开）：隐藏 checkbox，只显示选中项文字 */
+.cbi-dropdown > ul.preview > li > form {
   display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  position: absolute !important;
-  pointer-events: none !important;
 }
 
-/* 2. 未展开时：只显示已选中的项，隐藏其他 */
 .cbi-dropdown > ul.preview > li:not([selected]):not([unselectable]) {
   display: none !important;
 }
 
-/* 3. 隐藏 unselectable 占位项（那个 "---" ） */
 .cbi-dropdown > ul.preview > li[unselectable] {
   display: none !important;
 }
 
-/* 4. 已选中项 — 蓝色加粗文字表示选中 */
 .cbi-dropdown > ul.preview > li[selected] {
   color: var(--color-primary, #007aff) !important;
   font-weight: 600 !important;
 }
 
-/* 5. 下拉展开层里的选中项高亮 */
+/* 2. 下拉展开层：显示 checkbox，对齐官方样式 */
+.cbi-dropdown > ul.dropdown > li > form {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-right: 6px !important;
+}
+
+.cbi-dropdown > ul.dropdown > li > form > input[type="checkbox"] {
+  display: inline-block !important;
+  width: 16px !important;
+  height: 16px !important;
+  position: static !important;
+  pointer-events: auto !important;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  accent-color: var(--color-primary, #007aff) !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+}
+
+/* 3. 下拉展开层：选中项蓝色背景 + 勾选 */
 .cbi-dropdown > ul.dropdown > li[selected] {
   background: rgba(0, 122, 255, 0.12) !important;
   color: var(--color-primary, #007aff) !important;
   font-weight: 600 !important;
 }
 
-/* 6. 下拉展开层里也隐藏 checkbox */
-.cbi-dropdown > ul.dropdown > li > form {
-  display: none !important;
+/* 4. 下拉展开层：未选中项正常显示 */
+.cbi-dropdown > ul.dropdown > li:not([selected]):not([unselectable]) {
+  display: flex !important;
+  align-items: center !important;
 }

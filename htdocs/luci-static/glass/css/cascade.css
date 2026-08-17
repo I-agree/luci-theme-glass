@@ -1997,57 +1997,28 @@ progress::-moz-progress-bar {
    [data-theme="dark"] — make sure both use the SAME value.
    ========================================================================== */
 
-/* ===== 彻底修复 cbi-dropdown checkbox 显示 ===== */
+/* ===== cbi-dropdown 预览层：隐藏 checkbox ===== */
 
-/* 1. 全局隐藏 cbi-dropdown 里 li 内的 form（checkbox 容器） */
-.cbi-dropdown li > form {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  position: absolute !important;
-}
-
-/* 2. 但在下拉展开层（有 .dropdown class 的 ul）里恢复显示 */
-.cbi-dropdown > ul.dropdown > li > form {
-  display: inline-flex !important;
-  width: auto !important;
-  height: auto !important;
-  overflow: visible !important;
-  position: static !important;
-  align-items: center !important;
-  margin-right: 6px !important;
-}
-
-.cbi-dropdown > ul.dropdown > li > form > input[type="checkbox"] {
-  display: inline-block !important;
-  width: 16px !important;
-  height: 16px !important;
-  appearance: auto !important;
-  -webkit-appearance: auto !important;
-  accent-color: var(--color-primary, #007aff) !important;
-  cursor: pointer !important;
-  vertical-align: middle !important;
-  margin: 0 !important;
-}
-
-/* 3. 预览层：只显示选中项，蓝色加粗 */
-.cbi-dropdown > ul:not(.dropdown) > li:not([selected]):not([unselectable]) {
+/* 预览层的 li 有 display="0" 属性，精准命中 */
+.cbi-dropdown li[display] > form {
   display: none !important;
 }
 
-.cbi-dropdown > ul:not(.dropdown) > li[unselectable] {
+/* 同时隐藏未选中的预览项（没有 selected 属性的 li） */
+.cbi-dropdown > ul > li:not([selected]):not([unselectable]) {
   display: none !important;
 }
 
-.cbi-dropdown > ul:not(.dropdown) > li[selected] {
+/* 隐藏 unselectable 占位项 */
+.cbi-dropdown > ul > li[unselectable] {
+  display: none !important;
+}
+
+/* 选中项蓝色加粗 */
+.cbi-dropdown > ul > li[selected] {
   color: var(--color-primary, #007aff) !important;
   font-weight: 600 !important;
 }
 
-/* 4. 下拉展开层：选中项高亮 */
-.cbi-dropdown > ul.dropdown > li[selected] {
-  background: rgba(0, 122, 255, 0.12) !important;
-  color: var(--color-primary, #007aff) !important;
-  font-weight: 600 !important;
-}
+/* ===== cbi-dropdown 下拉展开层：显示 checkbox（保持之前的样式） ===== */
+/* 下拉层展开时，li 没有 display="0" 属性，所以上面的隐藏规则不会命中 */

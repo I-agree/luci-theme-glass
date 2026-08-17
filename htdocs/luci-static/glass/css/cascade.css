@@ -877,6 +877,11 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 }
 .cbi-section.fade-in .cbi-title > div:last-child span[data-style="inactive"]::after { transform: rotate(45deg); margin-top: -2px; }
 
+/* ---- Hide submenu tabmenu already extracted to #header-sub ---- */
+.cbi-tabmenu.tabs-moved-to-header {
+  display: none !important;
+}
+
 /* ==========================================================================
    PART 5 — GlassTheme Responsive
    ========================================================================== */

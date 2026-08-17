@@ -434,3 +434,6 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
 
 /* ---- Sidebar overlay — darker ---- */
 .sidebar-overlay { background: rgba(0,0,0,0.5) !important; }
+
+.cbi-map > h2, #view > h2, #maincontent > h2 { color: #f5f5f7 !important; }
+.cbi-map-descr { color: #98989d !important; }

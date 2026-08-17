@@ -273,8 +273,8 @@ header h3 a,header .brand{display:none!important}@media screen and (max-device-w
   -webkit-backdrop-filter: blur(12px) saturate(180%);
 }
 .header-actions:empty { display: none; }
-.header-actions [data-indicator] { display: flex; align-items: center; gap: 4px; font-size: 0.8125rem; font-weight: 500; color: #6e6e73; white-space: nowrap; }
-.header-actions [data-indicator][data-style="active"] { color: #007AFF; }
+.header-actions [data-indicator] { display: flex; align-items: center; gap: 4px; font-size: 0.8125rem; font-weight: 500; color: #6e6e73; white-space: nowrap; background-color: rgba(120,120,128,0.16); border-radius: 9999px; padding: 3px 10px; }
+.header-actions [data-indicator][data-style="active"] { color: #fff; background-color: var(--primary-color-high, #007AFF); border-radius: 9999px; padding: 3px 10px; }
 
 /* ---- Theme toggle ---- */
 .theme-toggle {

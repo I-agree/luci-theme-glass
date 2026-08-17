@@ -837,9 +837,23 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
 }
 
-/* ---- Hide map title/descr (moved to header by JS) ---- */
-.cbi-map-descr[data-moved], #view > h2 + [data-moved] { display: none; }
-.cbi-map > h2, #view > h2, #maincontent > h2 { display: none; }
+/* ---- Page title & description — always visible ---- */
+.cbi-map > h2, #view > h2, #maincontent > h2 {
+  display: block !important;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-color-highest, #1d1d1f);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+.cbi-map-descr {
+  display: block !important;
+  color: var(--text-color-medium, #6e6e73);
+  font-size: 0.8125rem;
+  margin-bottom: 24px;
+}
+/* Keep data-moved items hidden only if JS actually moved them */
+.cbi-map-descr[data-moved] { display: none; }
 
 /* ---- Section fold arrow ---- */
 .cbi-section.fade-in .cbi-title { display: flex; align-items: center; }

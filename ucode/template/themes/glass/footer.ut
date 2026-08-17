@@ -139,7 +139,8 @@
           headerSub.appendChild(tab);
         });
 
-        /* DO NOT hide original — keep tabs visible in-content */
+        /* Mark original as moved so CSS can hide it */
+        ul.classList.add('tabs-moved-to-header');
       });
 
       headerSub.classList.add('active');

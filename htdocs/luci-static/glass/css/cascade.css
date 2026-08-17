@@ -512,7 +512,6 @@ body {
 }
 
 /* ---- Hide official bootstrap header/footer (replaced by glass equivalents) ---- */
-header { display: none !important; }
 body > footer { display: none !important; }
 .container { max-width: none !important; }
 

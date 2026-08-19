@@ -115,7 +115,7 @@
       <div class="login-field">
         <label for="luci_username">{{ _('Username') }}</label>
         <input type="text" id="luci_username" name="luci_username"
-               value="{{ entityencode(duser, true) }}"
+               value=""
                autocomplete="username">
       </div>
 

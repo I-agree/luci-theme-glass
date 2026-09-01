@@ -116,7 +116,8 @@
         <label for="luci_username">{{ _('Username') }}</label>
         <input type="text" id="luci_username" name="luci_username"
                value=""
-               autocomplete="username">
+               autocomplete="username"
+               autofocus>
       </div>
 
       <div class="login-field">
@@ -131,8 +132,8 @@
 </div>
 
 <script>
-  var pw = document.getElementById('luci_password');
-  if (pw) pw.focus();
+  var un = document.getElementById('luci_username');
+  if (un) un.focus();
 
   (function(){
     var btn=document.getElementById('theme-toggle');

@@ -82,7 +82,7 @@ body {
   border-color: rgba(255,255,255,0.15) !important;
   box-shadow: 0 2px 16px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 8px rgba(255,255,255,0.06) !important;
 }
-.header-tab { color: #98989d !important; }
+.header-tab { color: #c7c7cc !important; }
 .header-tab:hover { background: rgba(255,255,255,0.06) !important; color: #f5f5f7 !important; }
 .header-tab.active { background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .tab-slider {
@@ -99,17 +99,17 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.12), inset 0 0.5px 0 rgba(255,255,255,0.06) !important;
 }
 .header-title { color: #f5f5f7 !important; }
-#status-indicators [data-indicator] { color: #98989d !important; }
+#status-indicators [data-indicator] { color: #aeaeb2 !important; }
 #status-indicators [data-indicator][data-level="warn"] { color: #FFD60A !important; }
 #status-indicators [data-indicator][data-level="crit"] { color: #FF453A !important; }
 #status-indicators [data-indicator][data-level="active"] { color: #0A84FF !important; }
 #status-indicators [data-indicator][data-level="busy"] { color: #BF5AF2 !important; }
 #status-indicators [data-indicator] + [data-indicator] { border-left-color: rgba(255,255,255,0.12) !important; }
-.header-actions [data-indicator] { color: #98989d !important; }
+.header-actions [data-indicator] { color: #aeaeb2 !important; }
 .header-actions [data-indicator][data-style="active"] { color: #fff !important; background-color: #0A84FF !important; }
 
 /* ---- Theme toggle — dark ---- */
-.theme-toggle { color: #98989d !important; }
+.theme-toggle { color: #aeaeb2 !important; }
 .theme-toggle:hover { color: #f5f5f7 !important; background: rgba(255,255,255,0.08) !important; }
 .theme-toggle-float {
   background-image: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.07) 25%, rgba(240,248,255,0.08) 50%, rgba(255,255,255,0.06) 75%, rgba(230,240,255,0.07) 100%) !important;
@@ -123,7 +123,7 @@ body {
   border-color: rgba(255,255,255,0.15) !important;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 0 12px rgba(255,255,255,0.15) !important;
 }
-.sub-tab { color: #98989d !important; }
+.sub-tab { color: #c7c7cc !important; }
 .sub-tab:hover { background: rgba(255,255,255,0.06) !important; color: #f5f5f7 !important; }
 .sub-tab.active { background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
@@ -133,11 +133,11 @@ body {
   border-color: rgba(255,255,255,0.12) !important;
   box-shadow: 0 2px 16px rgba(0,0,0,0.2), 0 0 1px rgba(0,0,0,0.25) !important;
 }
-.cbi-section-descr { color: #98989d !important; border-bottom-color: rgba(84,84,88,0.36) !important; }
+.cbi-section-descr { color: #aeaeb2 !important; border-bottom-color: rgba(84,84,88,0.36) !important; }
 .cbi-value { border-bottom-color: rgba(84,84,88,0.36) !important; }
 .cbi-value label.cbi-value-title { color: #f5f5f7 !important; }
-.cbi-value-description { color: #636366 !important; }
-.cbi-map-descr { color: #98989d !important; }
+.cbi-value-description { color: #8e8e93 !important; }
+.cbi-map-descr { color: #aeaeb2 !important; }
 
 /* ---- Tabs — dark glass ---- */
 .tabs, .cbi-tabmenu {
@@ -145,7 +145,7 @@ body {
   border-color: rgba(255,255,255,0.15) !important;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 0 12px rgba(255,255,255,0.15) !important;
 }
-.tabs > li > a, .cbi-tabmenu > li > a { color: #98989d !important; }
+.tabs > li > a, .cbi-tabmenu > li > a { color: #c7c7cc !important; }
 .tabs > li > a:hover, .cbi-tabmenu > li > a:hover { background: rgba(255,255,255,0.06) !important; color: #f5f5f7 !important; }
 .tabs > li.active, .cbi-tabmenu > li.cbi-tab {
   background: rgba(255,255,255,0.15) !important;
@@ -385,9 +385,9 @@ pre, #syslog { background: rgba(255,255,255,0.04) !important; border-color: rgba
   box-shadow: 0 8px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1) !important;
 }
 .login-title { color: #f5f5f7 !important; }
-.login-subtitle { color: #98989d !important; }
+.login-subtitle { color: #aeaeb2 !important; }
 .login-version { color: #636366 !important; }
-.login-form .login-field label { color: #98989d !important; }
+.login-form .login-field label { color: #aeaeb2 !important; }
 .login-form .login-field input {
   background: rgba(255,255,255,0.06) !important;
   border-color: rgba(255,255,255,0.15) !important;
@@ -427,7 +427,7 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
 }
 
 /* ---- Ifacebox body labels — dark ---- */
-.ifacebox-body > span > .nowrap > strong { color: #636366 !important; }
+.ifacebox-body > span > .nowrap > strong { color: #8e8e93 !important; }
 
 /* ---- Mobile hamburger — dark ---- */
 .menu-toggle { color: #f5f5f7 !important; }
@@ -436,7 +436,7 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
 .sidebar-overlay { background: rgba(0,0,0,0.5) !important; }
 
 .cbi-map > h2, #view > h2, #maincontent > h2 { color: #f5f5f7 !important; }
-.cbi-map-descr { color: #98989d !important; }
+.cbi-map-descr { color: #aeaeb2 !important; }
 
 /* ---- Background overlay — darken wallpaper in dark mode ---- */
 [data-theme="dark"] #bg-wrap::after {

@@ -882,21 +882,21 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   display: none !important;
 }
 
-/* ---- Fix: Zone Buttons ---- */
+/* ---- Fix: Firewall "Any" Button - Force Pale Yellow Background ---- */
+.cbi-section-firewall .cbi-button, 
 .cbi-button.cbi-button-neutral,
 button.cbi-button:not(.cbi-button-positive):not(.cbi-button-negative):not(.cbi-button-action):not(.primary) {
-  background: #f0f0f0 !important; 
-  background-image: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid #ccc !important;
-  color: #333 !important;
-  box-shadow: none !important;
+    background: #fff9c4 !important; /* 强制淡黄色背景 */
+    color: #000000 !important;       /* 强制黑色文字 */
+    border: 1px solid #fbc02d !important; /* 加一个深一点的黄色边框增加质感 */
+    box-shadow: none !important;     /* 去掉之前的玻璃阴影，保持扁平清晰 */
+    backdrop-filter: none !important; /* 去掉毛玻璃效果，防止受背景图干扰 */
 }
 
-.cbi-button.cbi-button-neutral:hover,
-button.cbi-button:not(.cbi-button-positive):not(.cbi-button-negative):not(.cbi-button-action):not(.primary):hover {
-  background: #e0e0e0 !important;
+/* 鼠标悬停时加深一点颜色，提供交互反馈 */
+.cbi-section-firewall .cbi-button:hover,
+.cbi-button.cbi-button-neutral:hover {
+    background: #fff59d !important; /* 更深的黄色 */
 }
 
 /* ==========================================================================

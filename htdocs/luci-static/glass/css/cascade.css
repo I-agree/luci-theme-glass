@@ -767,7 +767,7 @@ input:focus, textarea:focus, select:focus, .cbi-select.focus, .cbi-dropdown:focu
   background: linear-gradient(135deg, rgba(0,122,255,0.75) 0%, rgba(0,122,255,0.6) 100%) !important;
   color: #fff !important;
 }
-.ifacebadge {
+.ifacebox .ifacebadge {
   background: rgba(255, 193, 7, 0.2) !important;
   backdrop-filter: blur(8px) saturate(180%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);

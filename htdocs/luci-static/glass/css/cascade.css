@@ -920,77 +920,51 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 }
 
 /* ==========================================================================
-   PART 6 — Dropdown
+   PART 6 — Dropdown & Tooltip layering
    ========================================================================== */
 
-.cbi-section:has(.cbi-dropdown-open),
-.cbi-map:has(.cbi-dropdown-open) {
-  position: relative !important;
-  z-index: 9999 !important;
-  isolation: isolate;
-}
-
-.cbi-dropdown.cbi-dropdown-open,
-.cbi-dropdown[open] {
-  position: relative !important;
-  z-index: 9999 !important;
-}
-
-.cbi-dropdown[open] > ul.dropdown {
-  z-index: 9999 !important;
-}
-
-.cbi-tooltip-container {
-    z-index: 10000 !important;
-    position: relative;
-}
-
-.cbi-tooltip {
-    z-index: 10001 !important;
-    position: absolute !important;
-    white-space: nowrap !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    border: 1px solid rgba(255,255,255,0.2) !important;
-}
-
-#cbi-firewall-zone .td,
-#cbi-firewall-zone .tr,
-.cbi-section-table-row {
-    overflow: visible !important;
-}
-
+/* --- 6.0 global host-rung tokens (ideally move to the file-top :root) --- */
 :root {
   --z-host-tooltip: 950;
   --z-host-dropdown: 1150;
 }
 
+/* --- 6.1 kill retained animation transform -----------------------------
+   'both' leaves translateY(0) applied forever => every #view child becomes
+   a stacking context and traps popups. 'backwards' reverts to transform:none
+   after the animation, so the context disappears. This is the root fix. --- */
 #content-wrap,
 #view > :not(.spinning) {
   animation-fill-mode: backwards !important;
 }
 
+/* --- 6.2 tooltip: official mechanism + value, glass look only ---------- */
 .cbi-tooltip-container {
   position: relative;
   z-index: auto !important;
 }
 .cbi-tooltip {
-  z-index: 1000 !important;
-  white-space: pre !important;
-  background: rgba(255,255,255,0.95);
+  z-index: 1000 !important;            /* official */
+  white-space: pre !important;         /* official: multi-line lists need it */
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 0.5px solid rgba(255,255,255,0.6);
-  box-shadow: 0 8px 32px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.1);
+  border: 0.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .2), 0 2px 8px rgba(0, 0, 0, .1);
   color: #1d1d1f;
   pointer-events: none;
 }
 [data-darkmode="true"] .cbi-tooltip {
-  background: rgba(40,40,45,0.95);
+  background: rgba(40, 40, 45, 0.95);
   color: #f5f5f7;
-  border-color: rgba(255,255,255,0.12);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 .zonebadge .cbi-tooltip > * { position: relative; z-index: 2; }
 
+/* --- 6.3 promote the HOST of a hovered tooltip to the 950 rung ---------
+   list = every glass element that can form a stacking context
+   (backdrop-filter / transform) plus table primitives .tr/.td/.table,
+   which is what firewall rule-table row tooltips depend on. --- */
 .cbi-tooltip-container:hover,
 .tr:has(.cbi-tooltip-container:hover),
 .td:has(.cbi-tooltip-container:hover),
@@ -1013,6 +987,7 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   isolation: isolate;
 }
 
+/* --- 6.4 open dropdown: official 1100, host one rung higher (1150) ----- */
 .cbi-dropdown.cbi-dropdown-open,
 .cbi-dropdown[open] {
   position: relative;
@@ -1031,6 +1006,14 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   isolation: isolate;
 }
 
+/* --- 6.5 let firewall-zone table rows overflow so popups aren't clipped  */
+#cbi-firewall-zone .td,
+#cbi-firewall-zone .tr,
+.cbi-section-table-row {
+  overflow: visible !important;
+}
+
+/* --- 6.6 glass chrome below the official overlay rung (900) ------------ */
 .sidebar-overlay { z-index: 299; }
 #sidebar         { z-index: 300; }
 #header, #header-sub { z-index: 400; }

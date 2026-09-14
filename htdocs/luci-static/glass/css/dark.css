@@ -106,7 +106,7 @@ body {
 #status-indicators [data-indicator][data-level="busy"] { color: #BF5AF2 !important; }
 #status-indicators [data-indicator] + [data-indicator] { border-left-color: rgba(255,255,255,0.12) !important; }
 .header-actions [data-indicator] { color: #98989d !important; }
-.header-actions [data-indicator][data-style="active"] { color: #0A84FF !important; }
+.header-actions [data-indicator][data-style="active"] { color: #fff !important; background-color: #0A84FF !important; }
 
 /* ---- Theme toggle — dark ---- */
 .theme-toggle { color: #98989d !important; }

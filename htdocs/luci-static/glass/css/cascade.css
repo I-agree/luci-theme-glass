@@ -781,6 +781,10 @@ input:focus, textarea:focus, select:focus, .cbi-select.focus, .cbi-dropdown:focu
   -webkit-backdrop-filter: blur(6px) saturate(160%);
   border: 0.5px solid rgba(255,255,255,0.15) !important;
 }
+.zonebadge[style*="238, 238, 238"] {
+    --zone-color-rgb: 255, 213, 79 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
 
 /* ---- Table hover ---- */
 .cbi-section-table .tr:hover .td, .cbi-section-table .tr:hover .th, .cbi-section-table .tr:hover::before {

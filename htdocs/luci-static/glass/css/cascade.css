@@ -935,17 +935,3 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 .cbi-dropdown[open] > ul.dropdown {
   z-index: 9999 !important;
 }
-
-select, .cbi-dropdown {
-    z-index: 9999 !important;
-}
-
-.cbi-dropdown > ul, 
-select > option {
-    z-index: 9999 !important;
-    position: relative;
-}
-
-.cbi-dropdown-container {
-    z-index: 9999 !important;
-}

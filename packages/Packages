@@ -4,11 +4,11 @@ Architecture: all
 Maintainer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 Section: luci
 Priority: optional
-Installed-Size: 316
+Installed-Size: 328
 Description: Glass - Apple-inspired glassmorphism theme for LuCI
 Homepage: https://github.com/I-agree/luci-theme-glass
 License: GPL-3.0
 Filename: luci-theme-glass_1.1.7-1_all.ipk
-Size: 34485
-SHA256sum: 5dd713b6f840bcaf287dc140e44726f26e270a0ba57e8609fcd30a381208b873
+Size: 37236
+SHA256sum: 1b1338aea73fd7bc0e922b590a5fbb5c5e1a79b7bf6c27435433beb982425188
 

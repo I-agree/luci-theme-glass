@@ -958,3 +958,79 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 .cbi-section-table-row {
     overflow: visible !important;
 }
+
+:root {
+  --z-host-tooltip: 950;
+  --z-host-dropdown: 1150;
+}
+
+#content-wrap,
+#view > :not(.spinning) {
+  animation-fill-mode: backwards !important;
+}
+
+.cbi-tooltip-container {
+  position: relative;
+  z-index: auto !important;
+}
+.cbi-tooltip {
+  z-index: 1000 !important;
+  white-space: pre !important;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.6);
+  box-shadow: 0 8px 32px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.1);
+  color: #1d1d1f;
+  pointer-events: none;
+}
+[data-darkmode="true"] .cbi-tooltip {
+  background: rgba(40,40,45,0.95);
+  color: #f5f5f7;
+  border-color: rgba(255,255,255,0.12);
+}
+.zonebadge .cbi-tooltip > * { position: relative; z-index: 2; }
+
+.cbi-tooltip-container:hover,
+.tr:has(.cbi-tooltip-container:hover),
+.td:has(.cbi-tooltip-container:hover),
+.table:has(.cbi-tooltip-container:hover),
+.cbi-section-table-row:has(.cbi-tooltip-container:hover),
+.cbi-section:has(.cbi-tooltip-container:hover),
+.cbi-map:has(.cbi-tooltip-container:hover),
+.cbi-value:has(.cbi-tooltip-container:hover),
+.cbi-value-field:has(.cbi-tooltip-container:hover),
+.ifacebox:has(.cbi-tooltip-container:hover),
+.ifacebadge:has(.cbi-tooltip-container:hover),
+.zonebadge:has(.cbi-tooltip-container:hover),
+.tabs:has(.cbi-tooltip-container:hover),
+.cbi-tabmenu:has(.cbi-tooltip-container:hover),
+.actions:has(.cbi-tooltip-container:hover),
+.cbi-page-actions:has(.cbi-tooltip-container:hover),
+#view > *:has(.cbi-tooltip-container:hover) {
+  position: relative;
+  z-index: var(--z-host-tooltip) !important;
+  isolation: isolate;
+}
+
+.cbi-dropdown.cbi-dropdown-open,
+.cbi-dropdown[open] {
+  position: relative;
+  z-index: 1100 !important;
+}
+.cbi-dropdown[open] > ul.dropdown {
+  z-index: 1100 !important;
+}
+.tr:has(.cbi-dropdown-open),
+.td:has(.cbi-dropdown-open),
+.cbi-section:has(.cbi-dropdown-open),
+.cbi-map:has(.cbi-dropdown-open),
+#view > *:has(.cbi-dropdown-open) {
+  position: relative;
+  z-index: var(--z-host-dropdown) !important;
+  isolation: isolate;
+}
+
+.sidebar-overlay { z-index: 299; }
+#sidebar         { z-index: 300; }
+#header, #header-sub { z-index: 400; }

@@ -929,13 +929,9 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   --z-host-dropdown: 1150;
 }
 
-/* --- 6.1 kill retained animation transform -----------------------------
-   'both' leaves translateY(0) applied forever => every #view child becomes
-   a stacking context and traps popups. 'backwards' reverts to transform:none
-   after the animation, so the context disappears. This is the root fix. --- */
-#content-wrap,
+/* --- 6.1 kill retained animation transform ----------------------------- */
 #view > :not(.spinning) {
-  animation-fill-mode: backwards !important;
+  will-change: auto !important;
 }
 
 /* --- 6.2 tooltip: official mechanism + value, glass look only ---------- */
@@ -944,8 +940,8 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
   z-index: auto !important;
 }
 .cbi-tooltip {
-  z-index: 1000 !important;            /* official */
-  white-space: pre !important;         /* official: multi-line lists need it */
+  z-index: 1000 !important;
+  white-space: pre !important;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);

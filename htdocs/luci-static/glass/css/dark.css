@@ -437,3 +437,12 @@ div[style*="display:grid;grid-template-columns:repeat"] > .ifacebox {
 
 .cbi-map > h2, #view > h2, #maincontent > h2 { color: #f5f5f7 !important; }
 .cbi-map-descr { color: #98989d !important; }
+
+/* ---- Background overlay — darken wallpaper in dark mode ---- */
+[data-theme="dark"] #bg-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}

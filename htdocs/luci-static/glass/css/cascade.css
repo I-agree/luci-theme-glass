@@ -935,3 +935,22 @@ pre { border-radius: 10px !important; background: rgba(0,0,0,0.04) !important; b
 .cbi-dropdown[open] > ul.dropdown {
   z-index: 9999 !important;
 }
+
+.cbi-tooltip-container {
+    z-index: 10000 !important;
+    position: relative;
+}
+
+.cbi-tooltip {
+    z-index: 10001 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+#cbi-firewall-zone .td,
+#cbi-firewall-zone .tr,
+.cbi-section-table-row {
+    overflow: visible !important;
+}

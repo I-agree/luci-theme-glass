@@ -53,6 +53,16 @@
   <link rel="stylesheet" href="{{ media }}/css/cascade.css">
   <style id="dark-styles" media="{% if (glass_mode == 'dark'): %}all{% elif (glass_mode == 'light'): %}not all{% else %}(prefers-color-scheme: dark){% endif %}">
     {{ dark_css }}
+    [data-theme="dark"] #bg-wrap {
+      position: relative;
+    }
+    [data-theme="dark"] #bg-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+    }
   </style>
   <script>
   (function(){

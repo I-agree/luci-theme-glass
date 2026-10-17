@@ -173,6 +173,8 @@
 <script src="{{ media }}/js/jelly-bun-widget.js"></script>
 {% endif %}
 
+<script src="{{ media }}/js/click-effect.js"></script>
+
 {% endif %}
 {% if (js): %}<script>{{ js }}</script>{% endif %}
 </body>

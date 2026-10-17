@@ -4,9 +4,11 @@
   import { cursor } from 'uci';
   const glass_version = trim(readfile('/usr/share/ucode/luci/template/themes/glass/version')) ?? '?';
   let glass_status_bar = '1';
+  let glass_mascot = '1';
   let _cfg = cursor();
   if (access('/etc/config/glass')) {
     glass_status_bar = _cfg.get_first('glass', 'global', 'status_bar') ?? '1';
+    glass_mascot = _cfg.get_first('glass', 'global', 'mascot') ?? '1';
   }
 %}
 {% if (!blank_page): %}
@@ -166,6 +168,11 @@
     }).observe(content, { childList: true, subtree: true });
   })();
 </script>
+
+{% if (glass_mascot == '1'): %}
+<script src="{{ media }}/js/jelly-bun-widget.js"></script>
+{% endif %}
+
 {% endif %}
 {% if (js): %}<script>{{ js }}</script>{% endif %}
 </body>

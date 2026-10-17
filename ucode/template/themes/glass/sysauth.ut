@@ -183,6 +183,12 @@
     setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1000);
   }
   document.addEventListener('click',function(e){
+    // 拦截非鼠标触发的点击（如键盘回车、屏幕阅读器）
+    // e.detail === 0 表示由脚本或键盘触发的合成点击
+    // e.pointerType 存在且不为 'mouse' 时排除触屏笔等（可选，但更严谨）
+    if (e.detail === 0) return;
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+
     var x=e.clientX,y=e.clientY;
     var xr=Math.ceil(Math.random()*400)-200;
     var yr=Math.ceil(Math.random()*400)-200;

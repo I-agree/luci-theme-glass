@@ -276,6 +276,14 @@ msgstr "分钟"
 msgid "mins"
 msgstr "分钟"
 
+#: htdocs/luci-static/resources/view/system/glass.js
+msgid "Mascot widget"
+msgstr "吉祥物小组件"
+
+#: htdocs/luci-static/resources/view/system/glass.js
+msgid "Enable interactive steamed bun mascot widgets on all pages except the login page."
+msgstr "除了登录页面，在所有其它页面启用可互动的包子吉祥物小组件。"
+
 #: ucode/template/themes/glass/header.ut:178
 msgid "Theme"
 msgstr "主题"

@@ -35,6 +35,11 @@ return view.extend({
 		o.value('dark', _('Dark'));
 		o.default = 'normal';
 
+		o = s.option(form.Flag, 'mascot', _('Mascot widget'),
+			_('Enable interactive steamed bun mascot widgets on all pages except the login page.'));
+		o.default = '1';
+		o.rmempty = false;
+
 		o = s.option(form.Flag, 'status_bar', _('Header status bar'),
 			_('Show live system stats (CPU, RAM, network, uptime) in the header. Disable to reduce resource usage on low-end devices.'));
 		o.default = '1';

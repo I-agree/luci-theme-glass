@@ -165,37 +165,42 @@
 
 <!-- 登录页鼠标点击特效 -->
 <script>
-(function(){
+(function{
   var chars=['😀','😁','😂','😃','😄','😅','😆','😇','😈','😉','😊','😋','😌','😍','😎','😏','😐','😑','😒','😓','😔','😕','😖','😗','😘','😙','😚','😛','😜','😝','😞','😟','😠','😡','😢','😣','😤','😥','😦','😧','😨','😩','😪','😫','😬','😭','😮','😯','😰','😱','😲','😳','😴','😵','😶','😷'];
   function createEmoji(x,y,sizeBase,xr,yr){
-    var color="#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
-    var id=Math.floor(Math.random()*chars.length);
-    var n=Math.round(Math.random()*10+sizeBase);
+    var color="#"+("00000"+((Math.random*16777215+0.5)>>0).toString(16)).slice(-6);
+    var id=Math.floor(Math.random*chars.length);
+    var n=Math.round(Math.random*10+sizeBase);
     var el=document.createElement('b');
     el.textContent=chars[id];
     el.style.cssText='z-index:9999;color:'+color+';top:'+y+'px;left:'+x+'px;position:fixed;font-size:'+n+'px;pointer-events:none;user-select:none;-webkit-user-select:none;-ms-user-select:none;transition:all 1s ease-out;opacity:1;';
     document.body.appendChild(el);
-    requestAnimationFrame(function(){
+    requestAnimationFrame(function{
       el.style.top=(y+yr)+'px';
       el.style.left=(x+xr)+'px';
       el.style.opacity='0';
     });
-    setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1000);
+    setTimeout(function{if(el.parentNode)el.parentNode.removeChild(el);},1000);
   }
   document.addEventListener('click',function(e){
-    // 拦截非鼠标触发的点击（如键盘回车、屏幕阅读器）
-    // e.detail === 0 表示由脚本或键盘触发的合成点击
-    // e.pointerType 存在且不为 'mouse' 时排除触屏笔等（可选，但更严谨）
+    // 1. 过滤非鼠标触发的点击（如键盘回车提交表单）
     if (e.detail === 0) return;
     if (e.pointerType && e.pointerType !== 'mouse') return;
 
+    // 2. 过滤所有表单交互元素（输入框、密码框、按钮、下拉菜单等）
+    var target = e.target;
+    var tagName = target.tagName ? target.tagName.toLowerCase() : '';
+    if (tagName === 'input' || tagName === 'textarea' || tagName === 'select' || tagName === 'button' || target.isContentEditable) {
+      return;
+    }
+
     var x=e.clientX,y=e.clientY;
-    var xr=Math.ceil(Math.random()*400)-200;
-    var yr=Math.ceil(Math.random()*400)-200;
+    var xr=Math.ceil(Math.random*400)-200;
+    var yr=Math.ceil(Math.random*400)-200;
     createEmoji(x,y,26,xr,yr);
     createEmoji(x-20,y-20,16,-xr,-yr);
   });
-})();
+});
 </script>
 
 </body>

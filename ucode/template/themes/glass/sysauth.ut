@@ -61,6 +61,161 @@
       pointer-events: none;
     }
   </style>
+  
+  <!-- 布局重构与液态彩虹玻璃光泽动效 CSS -->
+  <style>
+    .login-wrap {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      padding: 0 !important;
+    }
+
+    .login-split-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 960px;
+      max-width: 90vw;
+      height: 560px;
+      max-height: 85vh;
+      position: relative;
+      z-index: 10;
+    }
+
+    .character-panel {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px 0 0 24px;
+      backdrop-filter: blur(var(--glass-blur, 20px));
+      -webkit-backdrop-filter: blur(var(--glass-blur, 20px));
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-right: none;
+    }
+
+    .form-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 24px 24px 0;
+    }
+
+    .login-card {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      border-radius: 0 24px 24px 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      padding: 40px !important;
+      position: relative !important;
+      overflow: hidden !important;
+      isolation: isolate;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(var(--glass-blur, 20px));
+      -webkit-backdrop-filter: blur(var(--glass-blur, 20px));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-left: none;
+    }
+
+    .liquid-rainbow {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 0;
+      pointer-events: none;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255, 0, 0, 0.4),
+        rgba(255, 127, 0, 0.4),
+        rgba(255, 255, 0, 0.4),
+        rgba(0, 255, 0, 0.4),
+        rgba(0, 0, 255, 0.4),
+        rgba(75, 0, 130, 0.4),
+        rgba(148, 0, 211, 0.4),
+        rgba(255, 0, 0, 0.4)
+      );
+      filter: blur(60px);
+      opacity: 0.65;
+      animation: liquid-flow 10s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    .liquid-shine-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at 30% 30%, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        transparent 60%
+      );
+      animation: shine-move 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes liquid-flow {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes shine-move {
+      0% { transform: translate(-10%, -10%) scale(1); opacity: 0.5; }
+      100% { transform: translate(10%, 10%) scale(1.2); opacity: 0.8; }
+    }
+
+    .login-card > *:not(.liquid-rainbow):not(.liquid-shine-overlay) {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ============ 角色动画 CSS ============ */
+    .characters-scene { position: relative; width: 320px; height: 260px; margin-bottom: 40px; }
+    .character { position: absolute; bottom: 0; transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: bottom center; }
+    
+    .char-purple { left: 40px; width: 110px; height: 240px; background: #6C3FF5; border-radius: 8px 8px 0 0; z-index: 1; }
+    .char-black { left: 140px; width: 75px; height: 180px; background: #2D2D2D; border-radius: 6px 6px 0 0; z-index: 2; }
+    .char-orange { left: 0; width: 150px; height: 120px; background: #FF9B6B; border-radius: 75px 75px 0 0; z-index: 3; }
+    .char-yellow { left: 190px; width: 90px; height: 140px; background: #E8D754; border-radius: 45px 45px 0 0; z-index: 4; }
+
+    .eyes { position: absolute; display: flex; transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .eyeball { border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; transition: height 0.15s ease; overflow: hidden; }
+    .pupil { border-radius: 50%; background: #2D2D2D; transition: transform 0.1s ease-out; }
+    .bare-pupil { width: 10px; height: 10px; border-radius: 50%; background: #2D2D2D; transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .yellow-mouth { position: absolute; width: 30px; height: 3px; background: #2D2D2D; border-radius: 2px; transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .orange-mouth { position: absolute; width: 20px; height: 10px; border: 2px solid #2D2D2D; border-top: none; border-radius: 0 0 10px 10px; opacity: 0; transition: all 0.7s ease-in-out; }
+    .orange-mouth.visible { opacity: 1; }
+
+    @keyframes shakeHead {
+      0%, 100% { translate: 0 0; } 10% { translate: -6px 0; } 20% { translate: 5px 0; }
+      30% { translate: -4px 0; } 40% { translate: 3px 0; } 50% { translate: -2px 0; }
+      60% { translate: 1px 0; }
+    }
+    .shake-head { animation: shakeHead 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+
+    [data-theme="dark"] .liquid-rainbow { opacity: 0.35; mix-blend-mode: color-dodge; }
+    [data-theme="dark"] .liquid-shine-overlay { opacity: 0.3; }
+    [data-theme="dark"] .login-card { background-color: rgba(0, 0, 0, 0.2) !important; }
+    [data-theme="dark"] .character-panel { background: rgba(0, 0, 0, 0.2); border-color: rgba(255,255,255,0.05); }
+
+    @media (max-width: 768px) {
+      .login-split-container { grid-template-columns: 1fr; width: 90vw; height: auto; }
+      .character-panel { display: none; }
+      .form-panel { border-radius: 24px; }
+      .login-card { border-radius: 24px !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+    }
+  </style>
+
   <script>
   (function(){
     var d=document.getElementById('dark-styles'),m=document.getElementById('meta-theme-color'),s;
@@ -106,35 +261,79 @@
   {% endif %}
 </div>
 
+<!-- 改造后的双列居中容器 -->
 <div class="login-wrap">
-  <div class="login-card">
-    <img class="login-logo" src="{{ media }}/img/glass-logo.svg" alt="Logo">
-    <h1 class="login-title">{{ hostname }}</h1>
-    <p class="login-subtitle">{{ _('Sign in to continue') }}</p>
-
-    {% if (fuser): %}
-    <div class="login-error">
-      {{ _('Invalid username and/or password! Please try again.') }}
+  <div class="login-split-container">
+    
+    <!-- 左侧：交互动画角色区 -->
+    <div class="character-panel">
+      <div class="characters-scene" id="characters-scene">
+        <div class="character char-purple" id="char-purple">
+          <div class="eyes" id="purple-eyes" style="left:25px;top:30px;gap:18px;">
+            <div class="eyeball" id="purple-eye-l" style="width:14px;height:14px;"><div class="pupil" id="purple-pupil-l" style="width:6px;height:6px;"></div></div>
+            <div class="eyeball" id="purple-eye-r" style="width:14px;height:14px;"><div class="pupil" id="purple-pupil-r" style="width:6px;height:6px;"></div></div>
+          </div>
+        </div>
+        <div class="character char-black" id="char-black">
+          <div class="eyes" id="black-eyes" style="left:16px;top:25px;gap:12px;">
+            <div class="eyeball" id="black-eye-l" style="width:12px;height:12px;"><div class="pupil" id="black-pupil-l" style="width:5px;height:5px;"></div></div>
+            <div class="eyeball" id="black-eye-r" style="width:12px;height:12px;"><div class="pupil" id="black-pupil-r" style="width:5px;height:5px;"></div></div>
+          </div>
+        </div>
+        <div class="character char-orange" id="char-orange">
+          <div class="eyes" id="orange-eyes" style="left:55px;top:55px;gap:18px;">
+            <div class="bare-pupil" id="orange-pupil-l"></div>
+            <div class="bare-pupil" id="orange-pupil-r"></div>
+          </div>
+          <div class="orange-mouth" id="orange-mouth" style="left:60px;top:80px;"></div>
+        </div>
+        <div class="character char-yellow" id="char-yellow">
+          <div class="eyes" id="yellow-eyes" style="left:32px;top:30px;gap:12px;">
+            <div class="bare-pupil" id="yellow-pupil-l"></div>
+            <div class="bare-pupil" id="yellow-pupil-r"></div>
+          </div>
+          <div class="yellow-mouth" id="yellow-mouth" style="left:28px;top:60px;"></div>
+        </div>
+      </div>
     </div>
-    {% endif %}
 
-    <form class="login-form" method="post" action="{{ http.getenv('REQUEST_URI') }}">
-      <div class="login-field">
-        <label for="luci_username">{{ _('Username') }}</label>
-        <input type="text" id="luci_username" name="luci_username"
-               value=""
-               autocomplete="username"
-               autofocus>
+    <!-- 右侧：液态玻璃登录表单区 -->
+    <div class="form-panel">
+      <div class="login-card">
+        <!-- 新增：液态彩虹光泽层与高光层 -->
+        <div class="liquid-rainbow"></div>
+        <div class="liquid-shine-overlay"></div>
+
+        <img class="login-logo" src="{{ media }}/img/glass-logo.svg" alt="Logo">
+        <h1 class="login-title">{{ hostname }}</h1>
+        <p class="login-subtitle">{{ _('Sign in to continue') }}</p>
+
+        {% if (fuser): %}
+        <div class="login-error" id="luci-login-error">
+          {{ _('Invalid username and/or password! Please try again.') }}
+        </div>
+        {% endif %}
+
+        <form class="login-form" id="login-form" method="post" action="{{ http.getenv('REQUEST_URI') }}">
+          <div class="login-field">
+            <label for="luci_username">{{ _('Username') }}</label>
+            <input type="text" id="luci_username" name="luci_username"
+                   value=""
+                   autocomplete="username"
+                   autofocus>
+          </div>
+
+          <div class="login-field">
+            <label for="luci_password">{{ _('Password') }}</label>
+            <input type="password" id="luci_password" name="luci_password"
+                   autocomplete="current-password">
+          </div>
+
+          <input type="submit" class="login-btn" value="{{ _('Log in') }}">
+        </form>
       </div>
+    </div>
 
-      <div class="login-field">
-        <label for="luci_password">{{ _('Password') }}</label>
-        <input type="password" id="luci_password" name="luci_password"
-               autocomplete="current-password">
-      </div>
-
-      <input type="submit" class="login-btn" value="{{ _('Log in') }}">
-    </form>
   </div>
 </div>
 
@@ -161,6 +360,207 @@
       btn.title=labels[next];btn.setAttribute('aria-label',labels[next]);
     });
   })();
+</script>
+
+<!-- 角色交互动画核心逻辑 (已修复偷看密码BUG) -->
+<script>
+(function(){
+  var usernameInput = document.getElementById('luci_username');
+  var passwordInput = document.getElementById('luci_password');
+  var loginForm = document.getElementById('login-form');
+  var errorEl = document.getElementById('luci-login-error');
+  
+  var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  var isTyping = false;
+  var isPasswordFocused = false;
+  var isLoginError = !!errorEl;
+  var typingTimer = null;
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!isTyping && !isLoginError) updateCharacters();
+  });
+
+  if (usernameInput) {
+    usernameInput.addEventListener('focus', function() {
+      isTyping = true;
+      isPasswordFocused = false; // 明确取消密码焦点状态
+      clearTimeout(typingTimer);
+      updateCharacters();
+    });
+    usernameInput.addEventListener('blur', function() {
+      isTyping = false;
+      updateCharacters();
+    });
+    usernameInput.addEventListener('input', function() {
+      updateCharacters();
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(function() { updateCharacters(); }, 500);
+    });
+  }
+
+  if (passwordInput) {
+    passwordInput.addEventListener('focus', function() {
+      isTyping = true;
+      isPasswordFocused = true; // 明确标记正在输入密码
+      updateCharacters();
+    });
+    passwordInput.addEventListener('blur', function() {
+      isTyping = false;
+      isPasswordFocused = false; // 离开密码框解除标记
+      updateCharacters();
+    });
+    passwordInput.addEventListener('input', function() {
+      updateCharacters();
+    });
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      if (!usernameInput.value || !passwordInput.value) {
+        e.preventDefault();
+        triggerLoginError();
+      }
+    });
+  }
+
+  if (isLoginError) {
+    setTimeout(triggerLoginError, 300);
+  }
+
+  function calcPosition(el) {
+    var rect = el.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 3;
+    var dx = mouseX - cx;
+    var dy = mouseY - cy;
+    var faceX = Math.max(-12, Math.min(12, dx / 25));
+    var faceY = Math.max(-8, Math.min(8, dy / 35));
+    var bodySkew = Math.max(-5, Math.min(5, -dx / 150));
+    return { faceX: faceX, faceY: faceY, bodySkew: bodySkew };
+  }
+
+  function calcPupilOffset(el, maxDist) {
+    var rect = el.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    var dx = mouseX - cx;
+    var dy = mouseY - cy;
+    var dist = Math.min(Math.sqrt(dx * dx + dy * dy), maxDist);
+    var angle = Math.atan2(dy, dx);
+    return { x: Math.cos(angle) * dist, y: Math.sin(angle) * dist };
+  }
+
+  function updateCharacters() {
+    var purple = document.getElementById('char-purple');
+    var black = document.getElementById('char-black');
+    var orange = document.getElementById('char-orange');
+    var yellow = document.getElementById('char-yellow');
+    if (!purple) return;
+
+    var pPos = calcPosition(purple);
+    var bPos = calcPosition(black);
+    var oPos = calcPosition(orange);
+    var yPos = calcPosition(yellow);
+
+    // 【核心修复】：将回避密码的逻辑置于最高优先级
+    var isLookingAway = isPasswordFocused;
+
+    // Purple Body
+    if (isLookingAway) { purple.style.transform = 'skewX(-12deg) translateX(-15px)'; purple.style.height = '260px'; }
+    else if (isTyping) { purple.style.transform = 'skewX(' + ((pPos.bodySkew || 0) - 8) + 'deg) translateX(20px)'; purple.style.height = '260px'; }
+    else { purple.style.transform = 'skewX(' + pPos.bodySkew + 'deg)'; purple.style.height = '240px'; }
+
+    // Purple Eyes
+    var pEyes = document.getElementById('purple-eyes');
+    var pEyeL = document.getElementById('purple-eye-l');
+    var pPupilL = document.getElementById('purple-pupil-l');
+    var pPupilR = document.getElementById('purple-pupil-r');
+    
+    // 【核心修复】：优先判断 isLookingAway，阻断 isTyping 时的视线跟随
+    if (isLoginError) { pEyes.style.left = '15px'; pEyes.style.top = '40px'; pPupilL.style.transform = 'translate(-2px, 3px)'; pPupilR.style.transform = 'translate(-2px, 3px)'; }
+    else if (isLookingAway) { pEyes.style.left = '10px'; pEyes.style.top = '20px'; pPupilL.style.transform = 'translate(-4px, -3px)'; pPupilR.style.transform = 'translate(-4px, -3px)'; }
+    else if (isTyping) { pEyes.style.left = '35px'; pEyes.style.top = '45px'; pPupilL.style.transform = 'translate(2px, 3px)'; pPupilR.style.transform = 'translate(2px, 3px)'; }
+    else { pEyes.style.left = (25 + pPos.faceX) + 'px'; pEyes.style.top = (30 + pPos.faceY) + 'px'; var po = calcPupilOffset(pEyeL, 4); pPupilL.style.transform = 'translate(' + po.x + 'px, ' + po.y + 'px)'; pPupilR.style.transform = 'translate(' + po.x + 'px, ' + po.y + 'px)'; }
+
+    // Black Body & Eyes
+    var bEyes = document.getElementById('black-eyes');
+    var bEyeL = document.getElementById('black-eye-l');
+    var bPupilL = document.getElementById('black-pupil-l');
+    var bPupilR = document.getElementById('black-pupil-r');
+
+    if (isLookingAway) { black.style.transform = 'skewX(10deg) translateX(-8px)'; }
+    else if (isTyping) { black.style.transform = 'skewX(' + ((bPos.bodySkew || 0) * 1.2) + 'deg)'; }
+    else { black.style.transform = 'skewX(' + bPos.bodySkew + 'deg)'; }
+
+    if (isLoginError) { bEyes.style.left = '10px'; bEyes.style.top = '35px'; bPupilL.style.transform = 'translate(-2px, 3px)'; bPupilR.style.transform = 'translate(-2px, 3px)'; }
+    else if (isLookingAway) { bEyes.style.left = '8px'; bEyes.style.top = '15px'; bPupilL.style.transform = 'translate(-3px, -3px)'; bPupilR.style.transform = 'translate(-3px, -3px)'; }
+    else if (isTyping) { bEyes.style.left = (16 + bPos.faceX) + 'px'; bEyes.style.top = (25 + bPos.faceY) + 'px'; var bo = calcPupilOffset(bEyeL, 3); bPupilL.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; bPupilR.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; }
+    else { bEyes.style.left = (16 + bPos.faceX) + 'px'; bEyes.style.top = (25 + bPos.faceY) + 'px'; var bo = calcPupilOffset(bEyeL, 3); bPupilL.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; bPupilR.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; }
+
+    // Orange Body & Eyes
+    var oEyes = document.getElementById('orange-eyes');
+    var oPupilL = document.getElementById('orange-pupil-l');
+    var oPupilR = document.getElementById('orange-pupil-r');
+    var oMouth = document.getElementById('orange-mouth');
+
+    if (isLookingAway) { orange.style.transform = 'skewX(5deg)'; }
+    else { orange.style.transform = 'skewX(' + oPos.bodySkew + 'deg)'; }
+
+    if (isLoginError) { oEyes.style.left = '40px'; oEyes.style.top = '65px'; oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)'; oMouth.style.left = (50 + oPos.faceX) + 'px'; oMouth.classList.add('visible'); }
+    else if (isLookingAway) { oEyes.style.left = '30px'; oEyes.style.top = '45px'; oPupilL.style.transform = 'translate(-5px, -3px)'; oPupilR.style.transform = 'translate(-5px, -3px)'; }
+    else { oEyes.style.left = (55 + oPos.faceX) + 'px'; oEyes.style.top = (55 + oPos.faceY) + 'px'; var oo = calcPupilOffset(oPupilL, 4); oPupilL.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; oPupilR.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; }
+
+    // Yellow Body, Eyes & Mouth
+    var yEyes = document.getElementById('yellow-eyes');
+    var yPupilL = document.getElementById('yellow-pupil-l');
+    var yPupilR = document.getElementById('yellow-pupil-r');
+    var yMouth = document.getElementById('yellow-mouth');
+
+    if (isLookingAway) { yellow.style.transform = 'skewX(-5deg)'; }
+    else { yellow.style.transform = 'skewX(' + yPos.bodySkew + 'deg)'; }
+
+    if (isLoginError) { yEyes.style.left = '20px'; yEyes.style.top = '40px'; yPupilL.style.transform = 'translate(-2px, 3px)'; yPupilR.style.transform = 'translate(-2px, 3px)'; yMouth.style.left = '15px'; yMouth.style.transform = 'rotate(-8deg)'; }
+    else if (isLookingAway) { yEyes.style.left = '15px'; yEyes.style.top = '25px'; yPupilL.style.transform = 'translate(-4px, -3px)'; yPupilR.style.transform = 'translate(-4px, -3px)'; yMouth.style.left = '15px'; yMouth.style.transform = 'rotate(0deg)'; }
+    else { yEyes.style.left = (32 + yPos.faceX) + 'px'; yEyes.style.top = (30 + yPos.faceY) + 'px'; var yo = calcPupilOffset(yPupilL, 4); yPupilL.style.transform = 'translate(' + yo.x + 'px, ' + yo.y + 'px)'; yPupilR.style.transform = 'translate(' + yo.x + 'px, ' + yo.y + 'px)'; yMouth.style.left = (28 + yPos.faceX) + 'px'; yMouth.style.transform = 'rotate(0deg)'; }
+  }
+
+  function triggerLoginError() {
+    isLoginError = true;
+    updateCharacters();
+    var shakeIds = ['purple-eyes','black-eyes','orange-eyes','yellow-eyes','yellow-mouth'];
+    var shakeEls = [];
+    for (var i = 0; i < shakeIds.length; i++) {
+      var el = document.getElementById(shakeIds[i]);
+      if (el) shakeEls.push(el);
+    }
+    
+    for (var j = 0; j < shakeEls.length; j++) { shakeEls[j].classList.remove('shake-head'); }
+    void document.body.offsetHeight;
+    
+    setTimeout(function() {
+      for (var k = 0; k < shakeEls.length; k++) { shakeEls[k].classList.add('shake-head'); }
+    }, 300);
+    
+    setTimeout(function() {
+      isLoginError = false;
+      for (var l = 0; l < shakeEls.length; l++) { shakeEls[l].classList.remove('shake-head'); }
+      updateCharacters();
+    }, 2500);
+  }
+
+  function blink(idL, idR) {
+    var elL = document.getElementById(idL);
+    var elR = document.getElementById(idR);
+    if (!elL || !elR) return;
+    elL.style.height = '2px'; elR.style.height = '2px';
+    setTimeout(function() { elL.style.height = ''; elR.style.height = ''; }, 150);
+  }
+  setInterval(function() { if (Math.random() > 0.5) blink('purple-eye-l', 'purple-eye-r'); else blink('black-eye-l', 'black-eye-r'); }, 3500);
+
+  updateCharacters();
+})();
 </script>
 
 <!-- 登录页鼠标点击特效 -->

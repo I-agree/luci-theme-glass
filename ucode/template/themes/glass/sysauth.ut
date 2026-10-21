@@ -193,7 +193,8 @@
     .pupil { border-radius: 50%; background: #2D2D2D; transition: transform 0.1s ease-out; }
     .bare-pupil { width: 10px; height: 10px; border-radius: 50%; background: #2D2D2D; transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .yellow-mouth { position: absolute; width: 30px; height: 3px; background: #2D2D2D; border-radius: 2px; transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .orange-mouth { position: absolute; width: 20px; height: 10px; border: 2px solid #2D2D2D; border-top: none; border-radius: 0 0 10px 10px; opacity: 0; transition: all 0.7s ease-in-out; }
+    .orange-mouth { position: absolute; width: 20px; height: 10px; border: 2px solid #2D2D2D; border-top: none; border-radius: 0 0 10px 10px; opacity: 0; transition: left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0s; }
+    .orange-mouth.visible { opacity: 1; transition: left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.05s ease-out 0.2s; }
     .orange-mouth.visible { opacity: 1; }
 
     @keyframes shakeHead {
@@ -285,7 +286,7 @@
             <div class="bare-pupil" id="orange-pupil-l"></div>
             <div class="bare-pupil" id="orange-pupil-r"></div>
           </div>
-          <div class="orange-mouth" id="orange-mouth" style="left:60px;top:80px;"></div>
+          <div class="orange-mouth" id="orange-mouth" style="left:35px;top:85px;"></div>
         </div>
         <div class="character char-yellow" id="char-yellow">
           <div class="eyes" id="yellow-eyes" style="left:32px;top:30px;gap:12px;">
@@ -362,7 +363,7 @@
   })();
 </script>
 
-<!-- 角色交互动画核心逻辑 (已修复偷看密码BUG) -->
+<!-- 角色交互动画核心逻辑 (已彻底修复黑色圆弧卡死BUG) -->
 <script>
 (function(){
   var usernameInput = document.getElementById('luci_username');
@@ -373,8 +374,10 @@
   var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
   var isTyping = false;
   var isPasswordFocused = false;
-  var isLoginError = !!errorEl;
+  // 【修复点1】初始状态强制为 false，不再被服务端的 fuser 锁死
+  var isLoginError = false;
   var typingTimer = null;
+  var errorRecoverTimer = null;
 
   document.addEventListener('mousemove', function(e) {
     mouseX = e.clientX;
@@ -385,7 +388,7 @@
   if (usernameInput) {
     usernameInput.addEventListener('focus', function() {
       isTyping = true;
-      isPasswordFocused = false; // 明确取消密码焦点状态
+      isPasswordFocused = false;
       clearTimeout(typingTimer);
       updateCharacters();
     });
@@ -403,12 +406,12 @@
   if (passwordInput) {
     passwordInput.addEventListener('focus', function() {
       isTyping = true;
-      isPasswordFocused = true; // 明确标记正在输入密码
+      isPasswordFocused = true;
       updateCharacters();
     });
     passwordInput.addEventListener('blur', function() {
       isTyping = false;
-      isPasswordFocused = false; // 离开密码框解除标记
+      isPasswordFocused = false;
       updateCharacters();
     });
     passwordInput.addEventListener('input', function() {
@@ -425,7 +428,8 @@
     });
   }
 
-  if (isLoginError) {
+  // 【修复点2】如果服务端已经报错了，仅触发一次动画，不锁死变量
+  if (errorEl) {
     setTimeout(triggerLoginError, 300);
   }
 
@@ -464,7 +468,6 @@
     var oPos = calcPosition(orange);
     var yPos = calcPosition(yellow);
 
-    // 【核心修复】：将回避密码的逻辑置于最高优先级
     var isLookingAway = isPasswordFocused;
 
     // Purple Body
@@ -478,7 +481,6 @@
     var pPupilL = document.getElementById('purple-pupil-l');
     var pPupilR = document.getElementById('purple-pupil-r');
     
-    // 【核心修复】：优先判断 isLookingAway，阻断 isTyping 时的视线跟随
     if (isLoginError) { pEyes.style.left = '15px'; pEyes.style.top = '40px'; pPupilL.style.transform = 'translate(-2px, 3px)'; pPupilR.style.transform = 'translate(-2px, 3px)'; }
     else if (isLookingAway) { pEyes.style.left = '10px'; pEyes.style.top = '20px'; pPupilL.style.transform = 'translate(-4px, -3px)'; pPupilR.style.transform = 'translate(-4px, -3px)'; }
     else if (isTyping) { pEyes.style.left = '35px'; pEyes.style.top = '45px'; pPupilL.style.transform = 'translate(2px, 3px)'; pPupilR.style.transform = 'translate(2px, 3px)'; }
@@ -499,7 +501,7 @@
     else if (isTyping) { bEyes.style.left = (16 + bPos.faceX) + 'px'; bEyes.style.top = (25 + bPos.faceY) + 'px'; var bo = calcPupilOffset(bEyeL, 3); bPupilL.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; bPupilR.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; }
     else { bEyes.style.left = (16 + bPos.faceX) + 'px'; bEyes.style.top = (25 + bPos.faceY) + 'px'; var bo = calcPupilOffset(bEyeL, 3); bPupilL.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; bPupilR.style.transform = 'translate(' + bo.x + 'px, ' + bo.y + 'px)'; }
 
-    // Orange Body & Eyes
+    // Orange Body & Eyes & Mouth
     var oEyes = document.getElementById('orange-eyes');
     var oPupilL = document.getElementById('orange-pupil-l');
     var oPupilR = document.getElementById('orange-pupil-r');
@@ -508,9 +510,29 @@
     if (isLookingAway) { orange.style.transform = 'skewX(5deg)'; }
     else { orange.style.transform = 'skewX(' + oPos.bodySkew + 'deg)'; }
 
-    if (isLoginError) { oEyes.style.left = '40px'; oEyes.style.top = '65px'; oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)'; oMouth.style.left = (50 + oPos.faceX) + 'px'; oMouth.classList.add('visible'); }
-    else if (isLookingAway) { oEyes.style.left = '30px'; oEyes.style.top = '45px'; oPupilL.style.transform = 'translate(-5px, -3px)'; oPupilR.style.transform = 'translate(-5px, -3px)'; }
-    else { oEyes.style.left = (55 + oPos.faceX) + 'px'; oEyes.style.top = (55 + oPos.faceY) + 'px'; var oo = calcPupilOffset(oPupilL, 4); oPupilL.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; oPupilR.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; }
+    // 【修复点3】彻底解决黑色圆弧卡死、一动不动的问题
+    if (isLoginError) { 
+      oEyes.style.left = '40px'; oEyes.style.top = '65px'; 
+      oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)'; 
+      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+      oMouth.classList.add('visible'); 
+    }
+    else if (isLookingAway) { 
+      oEyes.style.left = '30px'; oEyes.style.top = '45px'; 
+      oPupilL.style.transform = 'translate(-5px, -3px)'; oPupilR.style.transform = 'translate(-5px, -3px)'; 
+      // 补充：隐藏嘴巴并重置坐标
+      oMouth.classList.remove('visible'); 
+      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+    }
+    else { 
+      oEyes.style.left = (55 + oPos.faceX) + 'px'; oEyes.style.top = (55 + oPos.faceY) + 'px'; 
+      var oo = calcPupilOffset(oPupilL, 4); 
+      oPupilL.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; 
+      oPupilR.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; 
+      // 补充：正常状态下同样隐藏嘴巴并保持坐标跟随
+      oMouth.classList.remove('visible'); 
+      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+    }
 
     // Yellow Body, Eyes & Mouth
     var yEyes = document.getElementById('yellow-eyes');
@@ -527,9 +549,17 @@
   }
 
   function triggerLoginError() {
+    // 【修复点4】清除上一次的恢复定时器，防止连续点击导致状态混乱
+    if (errorRecoverTimer) {
+      clearTimeout(errorRecoverTimer);
+      errorRecoverTimer = null;
+    }
+
     isLoginError = true;
     updateCharacters();
-    var shakeIds = ['purple-eyes','black-eyes','orange-eyes','yellow-eyes','yellow-mouth'];
+    
+    // 【修复点5】将 'orange-mouth' 加入抖动列表，让黑色圆弧也能跟着摇头
+    var shakeIds = ['purple-eyes','black-eyes','orange-eyes','yellow-eyes','yellow-mouth','orange-mouth'];
     var shakeEls = [];
     for (var i = 0; i < shakeIds.length; i++) {
       var el = document.getElementById(shakeIds[i]);
@@ -543,8 +573,10 @@
       for (var k = 0; k < shakeEls.length; k++) { shakeEls[k].classList.add('shake-head'); }
     }, 300);
     
-    setTimeout(function() {
+    // 2.5秒后恢复常态
+    errorRecoverTimer = setTimeout(function() {
       isLoginError = false;
+      errorRecoverTimer = null;
       for (var l = 0; l < shakeEls.length; l++) { shakeEls[l].classList.remove('shake-head'); }
       updateCharacters();
     }, 2500);

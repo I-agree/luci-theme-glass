@@ -511,27 +511,27 @@
     else { orange.style.transform = 'skewX(' + oPos.bodySkew + 'deg)'; }
 
     // 【修复点3】彻底解决黑色圆弧卡死、位置错误、一动不动的问题
-    if (isLoginError) { 
-      oEyes.style.left = '40px'; oEyes.style.top = '65px'; 
-      oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)'; 
+    if (isLoginError) {
+      oEyes.style.left = '40px'; oEyes.style.top = '65px';
+      oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)';
       oMouth.style.left = '47px';
-      oMouth.classList.add('visible'); 
+      oMouth.classList.add('visible');
     }
-    else if (isLookingAway) { 
-      oEyes.style.left = '30px'; oEyes.style.top = '45px'; 
-      oPupilL.style.transform = 'translate(-5px, -3px)'; oPupilR.style.transform = 'translate(-5px, -3px)'; 
+    else if (isLookingAway) {
+      oEyes.style.left = '30px'; oEyes.style.top = '45px';
+      oPupilL.style.transform = 'translate(-5px, -3px)'; oPupilR.style.transform = 'translate(-5px, -3px)';
       // 补充：隐藏嘴巴并重置坐标
-      oMouth.classList.remove('visible'); 
-      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+      oMouth.classList.remove('visible');
+      oMouth.style.left = '47px';
     }
-    else { 
-      oEyes.style.left = (55 + oPos.faceX) + 'px'; oEyes.style.top = (55 + oPos.faceY) + 'px'; 
-      var oo = calcPupilOffset(oPupilL, 4); 
-      oPupilL.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; 
-      oPupilR.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)'; 
-      // 补充：正常状态下同样隐藏嘴巴并保持坐标跟随
-      oMouth.classList.remove('visible'); 
-      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+    else {
+      oEyes.style.left = (55 + oPos.faceX) + 'px'; oEyes.style.top = (55 + oPos.faceY) + 'px';
+      var oo = calcPupilOffset(oPupilL, 4);
+      oPupilL.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)';
+      oPupilR.style.transform = 'translate(' + oo.x + 'px, ' + oo.y + 'px)';
+      // 补充：正常状态下同样隐藏嘴巴
+      oMouth.classList.remove('visible');
+      oMouth.style.left = '47px';
     }
 
     // Yellow Body, Eyes & Mouth

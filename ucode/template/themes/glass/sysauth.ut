@@ -510,11 +510,11 @@
     if (isLookingAway) { orange.style.transform = 'skewX(5deg)'; }
     else { orange.style.transform = 'skewX(' + oPos.bodySkew + 'deg)'; }
 
-    // 【修复点3】彻底解决黑色圆弧卡死、一动不动的问题
+    // 【修复点3】彻底解决黑色圆弧卡死、位置错误、一动不动的问题
     if (isLoginError) { 
       oEyes.style.left = '40px'; oEyes.style.top = '65px'; 
       oPupilL.style.transform = 'translate(-2px, 3px)'; oPupilR.style.transform = 'translate(-2px, 3px)'; 
-      oMouth.style.left = (35 + oPos.faceX) + 'px'; 
+      oMouth.style.left = '47px';
       oMouth.classList.add('visible'); 
     }
     else if (isLookingAway) { 
